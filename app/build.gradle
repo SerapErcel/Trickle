@@ -7,6 +7,10 @@ android {
     namespace 'com.serapercel.trickle'
     compileSdk 32
 
+    buildFeatures{
+        viewBinding = true
+    }
+
     defaultConfig {
         applicationId "com.serapercel.trickle"
         minSdk 21
