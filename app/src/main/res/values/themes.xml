@@ -15,5 +15,6 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowBackground">@color/backgroundColor</item>
+        <item name="fontFamily">@font/tajawal</item>
     </style>
 </resources>
