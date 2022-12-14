@@ -68,6 +68,15 @@ class SignInFragment : Fragment() {
         }
     }
 
+    override fun onStart() {
+        super.onStart()
+        if (auth.currentUser != null) {
+            val intent = Intent(activity, MainActivity::class.java)
+            activity?.startActivity(intent)
+            activity?.finish()
+        }
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
