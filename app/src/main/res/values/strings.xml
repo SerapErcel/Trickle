@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">Trickle</string>
+    <string name="trickle">Trickle</string>
+    <string name="design">design</string>
+    <string name="next">Next</string>
+    <string name="finish">Fınısh</string>
+    <string name="sign_in">SIGN IN</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="forgot_password">Forgot Password</string>
+    <string name="sign_up">SIGN UP</string>
+    <string name="password_again">Password Again</string>
+    <string name="already_registered">Already Registered? Sign In</string>
+    <string name="passwords_not_match">Passwords do not match!</string>
+    <string name="empty_fields">Fill in the empty fields!</string>
+    <string name="sign_up_success">Registration Successful. Sign in.</string>
+    <string name="enter_email">Enter your email!</string>
+    <string name="send_reset_link">Password reset link has been sent to your email address.</string>
 </resources>

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1040917005559",
+    "project_id": "trickle-b97e2",
+    "storage_bucket": "trickle-b97e2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1040917005559:android:2560874a761d9a57d3fff2",
+        "android_client_info": {
+          "package_name": "com.serapercel.trickle"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1040917005559-ikgroc1ruble9l6magg7k49bkb27kken.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDY3wuR0KVm3YNwAbVtxPXwZwleOxf77Ew"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1040917005559-ikgroc1ruble9l6magg7k49bkb27kken.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
