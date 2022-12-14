@@ -55,6 +55,17 @@ class SignInFragment : Fragment() {
             findNavController().navigate(R.id.action_signInFragment_to_signUpFragment)
         }
 
+        binding.tvForgotPassword.setOnClickListener {
+            email = binding.etMail.text.toString()
+            
+            if (email.isNotEmpty()) {
+                auth.sendPasswordResetEmail(email).addOnSuccessListener {
+                    requireContext().toastShort(getString(R.string.send_reset_link))
+                }.addOnFailureListener { exception ->
+                    exception.localizedMessage?.let { it -> requireContext().toastLong(it) }
+                }
+            } else requireContext().toastShort(getString(R.string.enter_email))
+        }
     }
 
     override fun onDestroyView() {
