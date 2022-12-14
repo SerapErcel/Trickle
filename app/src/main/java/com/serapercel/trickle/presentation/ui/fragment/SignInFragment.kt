@@ -45,6 +45,7 @@ class SignInFragment : Fragment() {
                 auth.signInWithEmailAndPassword(email, password).addOnSuccessListener {
                     val intent = Intent(activity, MainActivity::class.java)
                     activity?.startActivity(intent)
+                    activity?.finish()
                 }.addOnFailureListener { exception ->
                     exception.localizedMessage?.let { it -> requireContext().toastLong(it) }
                 }
