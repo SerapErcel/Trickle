@@ -57,7 +57,7 @@ class SignInFragment : Fragment() {
 
         binding.tvForgotPassword.setOnClickListener {
             email = binding.etMail.text.toString()
-            
+
             if (email.isNotEmpty()) {
                 auth.sendPasswordResetEmail(email).addOnSuccessListener {
                     requireContext().toastShort(getString(R.string.send_reset_link))
