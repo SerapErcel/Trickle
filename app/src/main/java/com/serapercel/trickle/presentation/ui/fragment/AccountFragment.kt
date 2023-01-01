@@ -26,9 +26,9 @@ class AccountFragment : Fragment() {
     private var _binding: FragmentAccountBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewModel: AccountViewModel
-    private val accountAdapter = AccountAdapter(arrayListOf())
     private lateinit var database: FirebaseDatabase
     private lateinit var dbRef: DatabaseReference
+    private lateinit var accountAdapter :AccountAdapter
     private val args: AccountFragmentArgs by navArgs()
     private lateinit var email: String
     private lateinit var userId: String
@@ -47,6 +47,8 @@ class AccountFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(AccountViewModel::class.java)
         viewModel.refreshData()
+
+        accountAdapter = AccountAdapter(requireActivity(), arrayListOf())
 
         binding.accountRV.layoutManager = LinearLayoutManager(context)
         binding.accountRV.adapter = accountAdapter
