@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.serapercel.trickle.databinding.FragmentViewPagerBinding
-import com.serapercel.trickle.presentation.adapter.ViewPagerAdapter
+import com.serapercel.trickle.common.adapter.ViewPagerAdapter
 import com.serapercel.trickle.presentation.ui.onboarding.screens.FirstOnboardingFragment
 import com.serapercel.trickle.presentation.ui.onboarding.screens.SecondOnboardingFragment
 import com.serapercel.trickle.presentation.ui.onboarding.screens.ThirdOnboardingFragment

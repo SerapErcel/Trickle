@@ -9,8 +9,8 @@ import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.serapercel.trickle.R
 import com.serapercel.trickle.databinding.FragmentSignUpBinding
-import com.serapercel.trickle.presentation.util.toastLong
-import com.serapercel.trickle.presentation.util.toastShort
+import com.serapercel.trickle.util.toastLong
+import com.serapercel.trickle.util.toastShort
 
 
 class SignUpFragment : Fragment() {
