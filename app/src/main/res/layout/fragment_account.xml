@@ -64,7 +64,7 @@
                     android:backgroundTint="@color/backgroundColor"
                     android:fontFamily="@font/tajawal"
                     android:hint="@string/account_name"
-                    android:inputType="textEmailAddress"
+                    android:inputType="text"
                     android:textColor="@color/primaryDarkColor"
                     android:textSize="16sp" />
             </com.google.android.material.textfield.TextInputLayout>
