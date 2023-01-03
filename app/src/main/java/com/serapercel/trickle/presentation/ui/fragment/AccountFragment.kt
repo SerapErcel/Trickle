@@ -45,8 +45,6 @@ class AccountFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this).get(AccountViewModel::class.java)
-        viewModel.refreshData()
 
         accountAdapter = AccountAdapter(requireActivity(), arrayListOf())
 
@@ -56,7 +54,13 @@ class AccountFragment : Fragment() {
         email = args.email.toString()
         database = FirebaseDatabase.getInstance()
         dbRef = database.getReference("accounts")
+        userId = dbRef.push().key!!
+        user = User(userId, email)
+
+        viewModel = ViewModelProvider(this).get(AccountViewModel::class.java)
+        viewModel.refreshAccountData(user)
         initClickListener()
+
     }
 
     private fun initClickListener() {
@@ -66,21 +70,10 @@ class AccountFragment : Fragment() {
             binding.btnNewAccount.visibility = View.VISIBLE
         }
         binding.btnNewAccount.setOnClickListener {
-            userId = dbRef.push().key!!
-            // user = User(userId, email)
             account = binding.etAccountName.text.toString()
-
-            dbRef.child(user.email!!.removePunctuation()).child(account).setValue(user).addOnSuccessListener {
-                val intent = Intent(activity, MainActivity::class.java)
-                activity?.startActivity(intent)
-                activity?.finish()
-            }.addOnFailureListener { exception ->
-                exception.localizedMessage?.let { it -> requireContext().toastLong(it) }
-            }
-
+            viewModel.addAccount(user, account,requireActivity())
             binding.textInputLayout.visibility = View.INVISIBLE
             binding.btnNewAccount.visibility = View.INVISIBLE
-
         }
     }
 
