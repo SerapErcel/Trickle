@@ -6,33 +6,23 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
 import com.serapercel.trickle.common.adapter.AccountAdapter
 import com.serapercel.trickle.databinding.FragmentAccountBinding
-import com.serapercel.trickle.data.entity.User
 import com.serapercel.trickle.presentation.ui.activity.MainActivity
 import com.serapercel.trickle.presentation.ui.viewModel.AccountViewModel
-import com.serapercel.trickle.util.removePunctuation
 import com.serapercel.trickle.util.toastLong
-import com.serapercel.trickle.util.toastShort
 
 class AccountFragment : Fragment() {
 
     private var _binding: FragmentAccountBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewModel: AccountViewModel
-    private lateinit var database: FirebaseDatabase
-    private lateinit var dbRef: DatabaseReference
-    private lateinit var accountAdapter :AccountAdapter
+    private lateinit var accountAdapter: AccountAdapter
     private val args: AccountFragmentArgs by navArgs()
     private lateinit var email: String
-    private lateinit var userId: String
-    private lateinit var user: User
     private lateinit var account: String
 
     override fun onCreateView(
@@ -47,18 +37,13 @@ class AccountFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         accountAdapter = AccountAdapter(requireActivity(), arrayListOf())
-
-        binding.accountRV.layoutManager = LinearLayoutManager(context)
         binding.accountRV.adapter = accountAdapter
+        binding.accountRV.layoutManager = LinearLayoutManager(context)
 
         email = args.email.toString()
-        database = FirebaseDatabase.getInstance()
-        dbRef = database.getReference("accounts")
-        userId = dbRef.push().key!!
-        user = User(userId, email)
 
         viewModel = ViewModelProvider(this).get(AccountViewModel::class.java)
-        viewModel.refreshAccountData(user)
+        viewModel.fetchAccounts(email)
         initClickListener()
 
     }
@@ -71,32 +56,23 @@ class AccountFragment : Fragment() {
         }
         binding.btnNewAccount.setOnClickListener {
             account = binding.etAccountName.text.toString()
-            viewModel.addAccount(user, account,requireActivity())
-            binding.textInputLayout.visibility = View.INVISIBLE
-            binding.btnNewAccount.visibility = View.INVISIBLE
+            if (viewModel.addAccount(email, account)) {
+                val intent = Intent(requireContext(), MainActivity::class.java)
+                requireActivity().startActivity(intent)
+                requireActivity().finish()
+            } else {
+                requireContext().toastLong("Add Account Error")
+            }
         }
     }
 
-    fun observeLiveData(){
-        viewModel.accounts.observe(viewLifecycleOwner, Observer { accounts ->
-            accounts?.let{
-                binding.accountRV.visibility  = View.VISIBLE
+    private fun observeLiveData() {
+        viewModel.accounts.observe(viewLifecycleOwner) { accounts ->
+            accounts?.let {
+                binding.accountRV.visibility = View.VISIBLE
                 accountAdapter.updateAccountList(accounts)
             }
-        })
-
-        viewModel.accountsError.observe(viewLifecycleOwner, Observer { error ->
-            error?.let {
-                if(it){
-                    requireContext().toastShort("Error!\nPlease add new account.")
-                    binding.textInputLayout.visibility = View.VISIBLE
-                    binding.btnNewAccount.visibility = View.VISIBLE
-                }else
-                {
-                    binding.accountRV.visibility = View.VISIBLE
-                }
-            }
-        })
+        }
 
     }
 

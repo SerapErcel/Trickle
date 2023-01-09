@@ -27,13 +27,12 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
-        viewModel.getDataFromRoom()
         observeLiveData()
-
     }
 
     private fun observeLiveData(){
+        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+        viewModel.getDataFromRoom()
         viewModel.accountLiveData.observe(viewLifecycleOwner, Observer { account ->
             account?.let {
                 binding.tvToolbarAccountName.text = account
