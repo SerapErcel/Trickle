@@ -14,6 +14,7 @@ import com.serapercel.trickle.common.adapter.AccountAdapter
 import com.serapercel.trickle.data.entity.Account
 import com.serapercel.trickle.databinding.FragmentAccountBinding
 import com.serapercel.trickle.presentation.ui.viewModel.AccountViewModel
+import com.serapercel.trickle.util.toAccount
 import com.serapercel.trickle.util.toastLong
 
 class AccountFragment : Fragment() {
@@ -69,6 +70,26 @@ class AccountFragment : Fragment() {
         }
     }
 
+    override fun onStart() {
+        super.onStart()
+        val sharedPreference =
+            requireContext().getSharedPreferences("ACCOUNT", Context.MODE_PRIVATE)
+        if (sharedPreference.contains("account")) {
+            val action =
+                AccountFragmentDirections.actionAccountFragmentToHomeFragment2(
+                    getSharedPref(
+                        requireContext()
+                    )
+                )
+            findNavController().navigate(action)
+        }
+    }
+
+    private fun getSharedPref(context: Context): Account {
+        val sharedPreference = context.getSharedPreferences("ACCOUNT", Context.MODE_PRIVATE)
+        return sharedPreference.getString("account", "defVAlue is comming")!!.toAccount()
+    }
+
     private fun observeLiveData() {
         viewModel.accounts.observe(viewLifecycleOwner) { accounts ->
             accounts?.let {
@@ -83,7 +104,8 @@ class AccountFragment : Fragment() {
         val sharedPreference =
             requireContext().getSharedPreferences("ACCOUNT", Context.MODE_PRIVATE)
         val editor = sharedPreference.edit()
-        val sharedPrefString = "${account.name} ${account.user.value!!.email} ${account.user.value!!.id}"
+        val sharedPrefString =
+            "${account.name} ${account.user!!.value!!.email} ${account.user.value!!.id}"
         editor.putString("account", sharedPrefString)
         editor.apply()
     }
