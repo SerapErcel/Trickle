@@ -10,11 +10,11 @@ import com.serapercel.trickle.util.toAccount
 class HomeViewModel : ViewModel(){
     val accountLiveData = MutableLiveData<Account>()
 
-    fun getDataFromSharedPref(context: Context){
-        val account = getSharedPref(context).name
-        //accountLiveData.value = account!!
+    fun getAccountData(context: Context){
+        val account = getSharedPref(context)
+        accountLiveData.value = account
     }
-    fun getSharedPref(context: Context): Account {
+    private fun getSharedPref(context: Context): Account {
         val sharedPreference =  context.getSharedPreferences("ACCOUNT", Context.MODE_PRIVATE)
         return sharedPreference.getString("account","defVAlue is comming")!!.toAccount()
     }

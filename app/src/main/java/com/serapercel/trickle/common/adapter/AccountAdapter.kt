@@ -1,6 +1,7 @@
 package com.serapercel.trickle.common.adapter
 
 import android.app.Activity
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.MutableLiveData
@@ -12,7 +13,7 @@ import com.serapercel.trickle.databinding.CardAccountBinding
 import com.serapercel.trickle.presentation.ui.fragment.AccountFragmentDirections
 
 class AccountAdapter(
-    var activity: Activity,
+    var context: Context,
     var user: MutableLiveData<User>,
     var accountList: ArrayList<String>
 ) : RecyclerView.Adapter<AccountAdapter.CardAccountHolder>() {
@@ -36,7 +37,8 @@ class AccountAdapter(
         holder.binding.twAccountName.text = account
 
         holder.binding.accountCard.setOnClickListener {
-            val newAccount = Account(account,user)
+            val newAccount = Account(account, user)
+            addSharedPref(newAccount)
             val action = AccountFragmentDirections.actionAccountFragmentToHomeFragment2(newAccount)
             Navigation.findNavController(it).navigate(action)
 
@@ -49,7 +51,15 @@ class AccountAdapter(
 
     override fun getItemCount(): Int = accountList.size
 
-    fun updateAccountList(newAccountList: List<String>){
+    private fun addSharedPref(account: Account) {
+        val sharedPreference =
+            context.getSharedPreferences("ACCOUNT", Context.MODE_PRIVATE)
+        val editor = sharedPreference.edit()
+        editor.putString("account", account.toString())
+        editor.apply()
+    }
+
+    fun updateAccountList(newAccountList: List<String>) {
         accountList.clear()
         accountList.addAll(newAccountList)
         notifyDataSetChanged()

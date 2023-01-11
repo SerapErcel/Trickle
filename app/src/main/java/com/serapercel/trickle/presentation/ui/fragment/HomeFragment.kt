@@ -12,7 +12,6 @@ import com.serapercel.trickle.presentation.ui.viewModel.HomeViewModel
 
 class HomeFragment : Fragment() {
     private lateinit var viewModel: HomeViewModel
-    private var accountUuid = 0
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
@@ -21,7 +20,7 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentHomeBinding.inflate(inflater,container, false)
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -29,15 +28,14 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
 
-        arguments?.let {
-            viewModel.accountLiveData.value=HomeFragmentArgs.fromBundle(it).account
-        }
+        /*arguments?.let {
+            viewModel.accountLiveData.value = HomeFragmentArgs.fromBundle(it).account
+        }*/
         observeLiveData()
-
     }
 
-    private fun observeLiveData(){
-        viewModel.getDataFromSharedPref(requireContext())
+    private fun observeLiveData() {
+        viewModel.getAccountData(requireContext())
         viewModel.accountLiveData.observe(viewLifecycleOwner, Observer { account ->
             account?.let {
                 binding.tvToolbarAccountName.text = account.name

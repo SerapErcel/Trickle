@@ -60,13 +60,11 @@ class AccountFragment : Fragment() {
         binding.btnNewAccount.setOnClickListener {
             account = binding.etAccountName.text.toString()
             if (viewModel.addAccount(email, account)) {
-                val newAccount = Account(account,viewModel.user)
-                val action = AccountFragmentDirections.actionAccountFragmentToHomeFragment2(newAccount)
+                val newAccount = Account(account, viewModel.user)
+                addSharedPref(newAccount)
+                val action =
+                    AccountFragmentDirections.actionAccountFragmentToHomeFragment2(newAccount)
                 findNavController().navigate(action)
-                /*val intent = Intent(requireContext(), MainActivity::class.java)
-                addSharedPref(account,viewModel.user)
-                requireActivity().startActivity(intent)
-                requireActivity().finish()*/
             } else {
                 requireContext().toastLong("Add Account Error")
             }
@@ -82,12 +80,12 @@ class AccountFragment : Fragment() {
         }
 
     }
-    private fun addSharedPref(account: String, user: MutableLiveData<User>){
-        val newAccount = Account(account,user)
 
-        val sharedPreference =  requireContext().getSharedPreferences("ACCOUNT", Context.MODE_PRIVATE)
+    private fun addSharedPref(account: Account) {
+        val sharedPreference =
+            requireContext().getSharedPreferences("ACCOUNT", Context.MODE_PRIVATE)
         val editor = sharedPreference.edit()
-        editor.putString("account", newAccount.toString())
+        editor.putString("account", account.toString())
         editor.apply()
     }
 
