@@ -72,5 +72,17 @@
             android:name="email"
             app:argType="string"
             app:nullable="true"/>
+        <action
+            android:id="@+id/action_accountFragment_to_homeFragment2"
+            app:destination="@id/homeFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeFragment2"
+        android:name="com.serapercel.trickle.presentation.ui.fragment.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <argument
+            android:name="account"
+            app:argType="com.serapercel.trickle.data.entity.Account" />
     </fragment>
 </navigation>

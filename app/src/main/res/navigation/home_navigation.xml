@@ -9,5 +9,9 @@
         android:id="@+id/homeFragment"
         android:name="com.serapercel.trickle.presentation.ui.fragment.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <argument
+            android:name="account"
+            app:argType="com.serapercel.trickle.data.entity.Account" />
+    </fragment>
 </navigation>
