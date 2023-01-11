@@ -1,7 +1,6 @@
 package com.serapercel.trickle.util
 
 import android.content.Context
-import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import com.serapercel.trickle.data.entity.Account
@@ -25,12 +24,6 @@ fun String.removePunctuation(): String {
 // Convert to Account
 fun String.toAccount(): Account {
     val user= MutableLiveData<User>()
-    user.value = User("123","email@gmail.com")
-    val name = this.split(",",)[0].substring(13)
-    Log.e("toAccount this",this)
-    // ToDo User convert string operation fix
-    // ToDo string convert User operation fix
-    // E/toAccount this: Account(name=aysel, user=androidx.lifecycle.MutableLiveData@2bd8ff4)
-    Log.e("toAccount str",name)
-    return Account("name", user)
+    user.value = User(this.split(" ",)[2],this.split(" ",)[1])
+    return Account(this.split(" ",)[0], user)
 }

@@ -6,14 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.serapercel.trickle.common.adapter.AccountAdapter
 import com.serapercel.trickle.data.entity.Account
-import com.serapercel.trickle.data.entity.User
 import com.serapercel.trickle.databinding.FragmentAccountBinding
 import com.serapercel.trickle.presentation.ui.viewModel.AccountViewModel
 import com.serapercel.trickle.util.toastLong
@@ -85,7 +83,8 @@ class AccountFragment : Fragment() {
         val sharedPreference =
             requireContext().getSharedPreferences("ACCOUNT", Context.MODE_PRIVATE)
         val editor = sharedPreference.edit()
-        editor.putString("account", account.toString())
+        val sharedPrefString = "${account.name} ${account.user.value!!.email} ${account.user.value!!.id}"
+        editor.putString("account", sharedPrefString)
         editor.apply()
     }
 

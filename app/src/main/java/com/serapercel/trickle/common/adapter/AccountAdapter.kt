@@ -1,6 +1,5 @@
 package com.serapercel.trickle.common.adapter
 
-import android.app.Activity
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -55,7 +54,8 @@ class AccountAdapter(
         val sharedPreference =
             context.getSharedPreferences("ACCOUNT", Context.MODE_PRIVATE)
         val editor = sharedPreference.edit()
-        editor.putString("account", account.toString())
+        val sharedPrefString = "${account.name} ${account.user.value!!.email} ${account.user.value!!.id}"
+        editor.putString("account", sharedPrefString)
         editor.apply()
     }
 
