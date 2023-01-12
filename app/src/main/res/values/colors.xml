@@ -10,9 +10,11 @@
     <!-- light theme colors -->
     <color name="primaryColor">#80cbc4</color>
     <color name="primaryLightColor">#b2fef7</color>
+    <color name="primaryExtraLightColor">#d4fcf9</color>
     <color name="primaryDarkColor">#4f9a94</color>
     <color name="secondaryColor">#81c784</color>
     <color name="secondaryLightColor">#b2fab4</color>
+    <color name="secondaryExtraLightColor">#c7ebc9</color>
     <color name="secondaryDarkColor">#519657</color>
     <color name="backgroundColor">#e0f2f1</color>
     <color name="greyColor">#aebfbe</color>
