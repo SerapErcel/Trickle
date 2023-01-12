@@ -63,8 +63,8 @@
                 android:layout_marginEnd="16dp"
                 app:backgroundTint="@android:color/transparent"
                 app:elevation="0dp"
-                app:itemIconTint="@color/secondaryLightColor"
-                app:itemTextColor="@color/secondaryLightColor"
+                app:itemIconTint="@drawable/bottom_nav_colors"
+                app:itemTextColor="@drawable/bottom_nav_colors"
                 app:menu="@menu/bottom_nav_menu" />
         </com.google.android.material.bottomappbar.BottomAppBar>
 
@@ -75,7 +75,7 @@
             android:contentDescription="@string/design"
             android:src="@drawable/add"
             app:layout_anchor="@id/bottomAppBar"
-            app:tint="@color/textColor" />
+            app:tint="@color/secondaryExtraLightColor" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
