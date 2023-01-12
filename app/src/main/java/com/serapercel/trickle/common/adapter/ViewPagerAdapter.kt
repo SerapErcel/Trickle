@@ -1,4 +1,4 @@
-package com.serapercel.trickle.presentation.adapter
+package com.serapercel.trickle.common.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

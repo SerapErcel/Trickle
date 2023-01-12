@@ -16,4 +16,6 @@
     <string name="sign_up_success">Registration Successful. Sign in.</string>
     <string name="enter_email">Enter your email!</string>
     <string name="send_reset_link">Password reset link has been sent to your email address.</string>
+    <string name="new_account">New Account</string>
+    <string name="account_name">Account Name</string>
 </resources>
