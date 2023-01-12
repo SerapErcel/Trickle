@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".presentation.ui.fragment.HomeFragment">
 
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView3"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:defaultNavHost="true"
+        app:layout_constraintBottom_toBottomOf="@+id/bottomAppBarLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/homeToolbar"
+        app:navGraph="@navigation/home_navigation" />
+
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/homeToolbar"
         android:layout_width="match_parent"
@@ -27,6 +39,9 @@
             tools:text="Kullanıcı" />
 
     </com.google.android.material.appbar.MaterialToolbar>
+
+
+
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/bottomAppBarLayout"
@@ -61,6 +76,7 @@
             android:src="@drawable/add"
             app:layout_anchor="@id/bottomAppBar"
             app:tint="@color/textColor" />
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

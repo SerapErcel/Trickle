@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_navigation"
+    app:startDestination="@id/mainFragment">
+
+
+    <fragment
+        android:id="@+id/analyticsFragment"
+        android:name="com.serapercel.trickle.presentation.ui.fragment.AnalyticsFragment"
+        android:label="fragment_analytics"
+        tools:layout="@layout/fragment_analytics" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.serapercel.trickle.presentation.ui.fragment.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.serapercel.trickle.presentation.ui.fragment.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" />
+    <fragment
+        android:id="@+id/needsFragment"
+        android:name="com.serapercel.trickle.presentation.ui.fragment.NeedsFragment"
+        android:label="fragment_needs"
+        tools:layout="@layout/fragment_needs" />
+</navigation>
