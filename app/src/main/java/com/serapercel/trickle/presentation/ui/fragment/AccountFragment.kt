@@ -59,7 +59,7 @@ class AccountFragment : Fragment() {
         binding.btnNewAccount.setOnClickListener {
             account = binding.etAccountName.text.toString()
             if (viewModel.addAccount(email, account)) {
-                val newAccount = Account(account, viewModel.user)
+                val newAccount = Account(account, viewModel.user.value)
                 addSharedPref(newAccount)
                 val action =
                     AccountFragmentDirections.actionAccountFragmentToHomeFragment2(newAccount)
@@ -105,7 +105,7 @@ class AccountFragment : Fragment() {
             requireContext().getSharedPreferences("ACCOUNT", Context.MODE_PRIVATE)
         val editor = sharedPreference.edit()
         val sharedPrefString =
-            "${account.name} ${account.user!!.value!!.email} ${account.user.value!!.id}"
+            "${account.name} ${account.user!!.email} ${account.user.id}"
         editor.putString("account", sharedPrefString)
         editor.apply()
     }

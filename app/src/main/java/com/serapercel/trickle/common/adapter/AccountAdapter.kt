@@ -36,7 +36,7 @@ class AccountAdapter(
         holder.binding.twAccountName.text = account
 
         holder.binding.accountCard.setOnClickListener {
-            val newAccount = Account(account, user)
+            val newAccount = Account(account, user.value)
             addSharedPref(newAccount)
             val action = AccountFragmentDirections.actionAccountFragmentToHomeFragment2(newAccount)
             Navigation.findNavController(it).navigate(action)
@@ -50,7 +50,7 @@ class AccountAdapter(
         val sharedPreference =
             context.getSharedPreferences("ACCOUNT", Context.MODE_PRIVATE)
         val editor = sharedPreference.edit()
-        val sharedPrefString = "${account.name} ${account.user!!.value!!.email} ${account.user.value!!.id}"
+        val sharedPrefString = "${account.name} ${account.user!!.email} ${account.user.id}"
         editor.putString("account", sharedPrefString)
         editor.apply()
     }

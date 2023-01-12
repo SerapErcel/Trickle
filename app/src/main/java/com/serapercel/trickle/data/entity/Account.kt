@@ -1,12 +1,13 @@
 package com.serapercel.trickle.data.entity
 
-import androidx.lifecycle.MutableLiveData
+import android.os.Parcelable
 import com.google.firebase.database.IgnoreExtraProperties
-import java.io.Serializable
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 @IgnoreExtraProperties
 data class Account(
     val name: String?,
-    val user: MutableLiveData<User>?
+    val user: User?
 ) :
-    Serializable
+    Parcelable
