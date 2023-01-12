@@ -18,4 +18,9 @@
     <string name="send_reset_link">Password reset link has been sent to your email address.</string>
     <string name="new_account">New Account</string>
     <string name="account_name">Account Name</string>
+    <string name="home">Home</string>
+    <string name="analytics">Analytics</string>
+    <string name="holder"> </string>
+    <string name="account">Account</string>
+    <string name="shopping_list">Needs</string>
 </resources>
