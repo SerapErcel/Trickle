@@ -1,18 +1,20 @@
 package com.serapercel.trickle.presentation.ui.fragment
 
-import android.content.Intent
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.serapercel.trickle.common.adapter.AccountAdapter
+import com.serapercel.trickle.data.entity.Account
 import com.serapercel.trickle.databinding.FragmentAccountBinding
-import com.serapercel.trickle.presentation.ui.activity.MainActivity
 import com.serapercel.trickle.presentation.ui.viewModel.AccountViewModel
+import com.serapercel.trickle.util.toAccount
 import com.serapercel.trickle.util.toastLong
 
 class AccountFragment : Fragment() {
@@ -36,14 +38,14 @@ class AccountFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        accountAdapter = AccountAdapter(requireActivity(), arrayListOf())
-        binding.accountRV.adapter = accountAdapter
-        binding.accountRV.layoutManager = LinearLayoutManager(context)
-
         email = args.email.toString()
 
         viewModel = ViewModelProvider(this).get(AccountViewModel::class.java)
         viewModel.fetchAccounts(email)
+        accountAdapter = AccountAdapter(requireActivity(), viewModel.user, arrayListOf())
+        binding.accountRV.adapter = accountAdapter
+        binding.accountRV.layoutManager = LinearLayoutManager(context)
+
         initClickListener()
 
     }
@@ -57,13 +59,35 @@ class AccountFragment : Fragment() {
         binding.btnNewAccount.setOnClickListener {
             account = binding.etAccountName.text.toString()
             if (viewModel.addAccount(email, account)) {
-                val intent = Intent(requireContext(), MainActivity::class.java)
-                requireActivity().startActivity(intent)
-                requireActivity().finish()
+                val newAccount = Account(account, viewModel.user.value)
+                addSharedPref(newAccount)
+                val action =
+                    AccountFragmentDirections.actionAccountFragmentToHomeFragment2(newAccount)
+                findNavController().navigate(action)
             } else {
                 requireContext().toastLong("Add Account Error")
             }
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val sharedPreference =
+            requireContext().getSharedPreferences("ACCOUNT", Context.MODE_PRIVATE)
+        if (sharedPreference.contains("account")) {
+            val action =
+                AccountFragmentDirections.actionAccountFragmentToHomeFragment2(
+                    getSharedPref(
+                        requireContext()
+                    )
+                )
+            findNavController().navigate(action)
+        }
+    }
+
+    private fun getSharedPref(context: Context): Account {
+        val sharedPreference = context.getSharedPreferences("ACCOUNT", Context.MODE_PRIVATE)
+        return sharedPreference.getString("account", "defVAlue is comming")!!.toAccount()
     }
 
     private fun observeLiveData() {
@@ -74,6 +98,16 @@ class AccountFragment : Fragment() {
             }
         }
 
+    }
+
+    private fun addSharedPref(account: Account) {
+        val sharedPreference =
+            requireContext().getSharedPreferences("ACCOUNT", Context.MODE_PRIVATE)
+        val editor = sharedPreference.edit()
+        val sharedPrefString =
+            "${account.name} ${account.user!!.email} ${account.user.id}"
+        editor.putString("account", sharedPrefString)
+        editor.apply()
     }
 
     override fun onDestroyView() {

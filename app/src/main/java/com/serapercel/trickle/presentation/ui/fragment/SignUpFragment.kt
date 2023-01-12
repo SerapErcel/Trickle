@@ -12,7 +12,6 @@ import com.serapercel.trickle.databinding.FragmentSignUpBinding
 import com.serapercel.trickle.util.toastLong
 import com.serapercel.trickle.util.toastShort
 
-
 class SignUpFragment : Fragment() {
 
     private var _binding: FragmentSignUpBinding? = null

@@ -1,7 +1,6 @@
 package com.serapercel.trickle.presentation.ui.fragment
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -70,16 +69,8 @@ class SignInFragment : Fragment() {
     }
 
     private fun newUser(email: String, password: String) {
-        /*val userId = dbRef.push().key!!
-        val user = User(userId, email)
-        dbRef.child(userId).setValue(user).addOnSuccessListener {
-            findNavController().navigate(R.id.action_signUpFragment_to_signInFragment)
-        }*/
         if (email.isNotEmpty() && password.isNotEmpty()) {
             auth.signInWithEmailAndPassword(email, password).addOnSuccessListener {
-                /*val intent = Intent(activity, MainActivity::class.java)
-                activity?.startActivity(intent)
-                activity?.finish()*/
                 val action = SignInFragmentDirections.actionSignInFragmentToAccountFragment(email)
                 findNavController().navigate(action)
             }.addOnFailureListener { exception ->
@@ -92,11 +83,8 @@ class SignInFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         if (auth.currentUser != null) {
-            /*val intent = Intent(activity, MainActivity::class.java)
-            activity?.startActivity(intent)
-            activity?.finish()*/
-            val action = SignInFragmentDirections.actionSignInFragmentToAccountFragment(auth.currentUser!!.email)
-            Log.e("hata", auth.currentUser!!.email!!)
+            val action =
+                SignInFragmentDirections.actionSignInFragmentToAccountFragment(auth.currentUser!!.email)
             findNavController().navigate(action)
         }
     }

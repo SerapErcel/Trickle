@@ -7,16 +7,20 @@ import com.serapercel.trickle.util.removePunctuation
 
 class AccountRepository {
     var dbRef = FirebaseDatabase.getInstance().getReference("accounts")
-
-    fun fetchAccounts(accountsLiveData: MutableLiveData<List<String>>, email: String) {
+    private val userId = dbRef.push().key!!
+    fun fetchAccounts(
+        accountsLiveData: MutableLiveData<List<String>>,
+        email: String,
+        user: MutableLiveData<User>
+    ) {
         val accountList = arrayListOf<String>()
-        val userId = dbRef.push().key!!
-        val user = User(userId, email)
+        user.value = User(userId, email)
+
         dbRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 accountList.clear()
                 if (snapshot.exists()) {
-                    for (empSnap in snapshot.child(user.email!!.removePunctuation()).children) {
+                    for (empSnap in snapshot.child(user.value!!.email!!.removePunctuation()).children) {
                         val empData = empSnap.getKey().toString()
                         accountList.add(empData)
                     }
@@ -29,18 +33,17 @@ class AccountRepository {
         })
     }
 
-    fun addAccount(email: String, newAccount: String): Boolean {
+    fun addAccount(email: String, newAccount: String, user: MutableLiveData<User>): Boolean {
         var result = true
-        val userId = dbRef.push().key!!
-        val user = User(userId, email)
-        dbRef.child(user.email!!.removePunctuation()).child(newAccount).setValue(user)
+        user.value = User(userId, email)
+        dbRef.child(user.value!!.email!!.removePunctuation()).child(newAccount).setValue(user)
             .addOnSuccessListener {
                 result = true
             }.addOnFailureListener { exception ->
-            exception.localizedMessage?.let {
-                result = false
+                exception.localizedMessage?.let {
+                    result = false
+                }
             }
-        }
         return result
     }
 }
