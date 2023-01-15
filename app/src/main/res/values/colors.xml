@@ -20,4 +20,6 @@
     <color name="primaryColorTransparent">#074f9a94</color>
     <color name="greyColor">#aebfbe</color>
     <color name="textColor">#e0f2f1</color>
+    <color name="darkTextColor">#122226</color>
+
 </resources>

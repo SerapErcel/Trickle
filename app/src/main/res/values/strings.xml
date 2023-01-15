@@ -28,4 +28,5 @@
     <string name="calculate">Calculate</string>
     <string name="overview">Overview</string>
     <string name="needs">Needs</string>
+    <string name="currency">Currency</string>
 </resources>
