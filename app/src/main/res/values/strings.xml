@@ -29,4 +29,6 @@
     <string name="overview">Overview</string>
     <string name="needs">Needs</string>
     <string name="currency">Currency</string>
+    <string name="last_transactions">Last Transactıons</string>
+    <string name="filter">Fılter</string>
 </resources>
