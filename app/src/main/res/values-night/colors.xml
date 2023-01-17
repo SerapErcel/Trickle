@@ -21,4 +21,6 @@
     <color name="greyColor">#aebfbe</color>
     <color name="textColor">#e0f2f1</color>
     <color name="darkTextColor">#e0f2f1</color>
+    <color name="orange">#FD6140</color>
+
 </resources>

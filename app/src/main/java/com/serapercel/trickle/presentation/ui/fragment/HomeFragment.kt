@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.serapercel.trickle.R
 import com.serapercel.trickle.databinding.FragmentHomeBinding
 import com.serapercel.trickle.presentation.ui.viewModel.HomeViewModel
+import com.serapercel.trickle.util.replaceFragment
 
 class HomeFragment : Fragment() {
     private lateinit var viewModel: HomeViewModel
@@ -27,29 +28,22 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
-        replaceFragment(MainFragment())
+        replaceFragment(requireActivity(),R.id.mainContainer,MainFragment())
         binding.fab.setOnClickListener {
-            replaceFragment(TransactionFragment())
+            replaceFragment(requireActivity(),R.id.mainContainer,TransactionFragment())
         }
         binding.bottomNavigationView.setOnItemSelectedListener {
             when (it.itemId) {
-                R.id.mainFragment -> replaceFragment(MainFragment())
-                R.id.needsFragment -> replaceFragment(NeedsFragment())
-                R.id.profileFragment -> replaceFragment(ProfileFragment())
-                R.id.analyticsFragment -> replaceFragment(AnalyticsFragment())
+                R.id.mainFragment -> replaceFragment(requireActivity(),R.id.mainContainer ,MainFragment())
+                R.id.needsFragment -> replaceFragment(requireActivity(),R.id.mainContainer, NeedsFragment())
+                R.id.profileFragment -> replaceFragment(requireActivity(),R.id.mainContainer, ProfileFragment())
+                R.id.analyticsFragment -> replaceFragment(requireActivity(),R.id.mainContainer, AnalyticsFragment())
                 else -> {
                 }
             }
             true
         }
         observeLiveData()
-    }
-
-    private fun replaceFragment(fragment: Fragment) {
-        val manager = requireActivity().supportFragmentManager
-        val fragmentTransaction = manager.beginTransaction()
-        fragmentTransaction.replace(R.id.mainContainer, fragment)
-        fragmentTransaction.commit()
     }
 
     private fun observeLiveData() {
