@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".presentation.ui.fragment.CalculatorFragment"
+    tools:ignore="HardcodedText">
+    <data>
+        <variable
+            name="tvResults"
+            type="String" />
+        <variable
+            name="tvWorkings"
+            type="String" />
+        <variable
+            name="toolbarHomeTitle"
+            type="String" />
+        <variable
+            name="calculatorFragment"
+            type="com.serapercel.trickle.presentation.ui.fragment.CalculatorFragment"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:padding="20dp">
+
+            <TextView
+                android:id="@+id/tvWorkings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lines="2"
+                android:maxLines="2"
+                android:textAlignment="textEnd"
+                android:textColor="@color/primaryDarkColor"
+                android:textSize="25sp"
+                app:layout_constraintBottom_toTopOf="@id/tvResults"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="@{tvWorkings}" />
+
+            <TextView
+                android:id="@+id/tvResults"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lines="1"
+                android:maxLines="1"
+                android:textAlignment="textEnd"
+                android:textColor="@color/primaryDarkColor"
+                android:textSize="40sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:text="@{tvResults}" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout style="@style/buttonRow">
+
+            <Button
+                style="@style/buttonNumber"
+                android:onClick="allClearAction"
+                android:text="AC"
+                android:textColor="@color/orange" />
+
+            <Button
+                style="@style/buttonNumber"
+                android:onClick="@{()->calculatorFragment.backSpaceAction()}"
+                android:text="D"
+                android:textColor="@color/orange" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/buttonNumber"
+                android:text="" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/buttonOperator"
+                android:text="/" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/buttonRow">
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/buttonNumber"
+                android:text="7" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/buttonNumber"
+                android:text="8" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/buttonNumber"
+                android:text="9" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/buttonOperator"
+                android:text="x" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/buttonRow">
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/buttonNumber"
+                android:text="4" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/buttonNumber"
+                android:text="5" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/buttonNumber"
+                android:text="6" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/buttonOperator"
+                android:text="-" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/buttonRow">
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/buttonNumber"
+                android:text="1" />
+
+            <Button
+                style="@style/buttonNumber"
+                android:text="2" />
+
+            <Button
+                style="@style/buttonNumber"
+                android:text="3" />
+
+            <Button
+                style="@style/buttonOperator"
+                android:text="+" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/buttonRow">
+
+            <Button
+                style="@style/buttonNumber"
+                android:text="." />
+
+            <Button
+                style="@style/buttonNumber"
+                android:text="0" />
+
+            <Button
+                style="@style/buttonNumber"
+                android:layout_weight="2"
+                android:onClick="equalsAction"
+                android:text="="
+                android:textSize="40sp" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/buttonRow"></LinearLayout>
+    </LinearLayout>
+</layout>
