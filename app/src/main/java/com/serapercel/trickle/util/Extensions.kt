@@ -1,9 +1,7 @@
 package com.serapercel.trickle.util
 
 import android.content.Context
-import android.view.View
 import android.widget.Toast
-import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.serapercel.trickle.data.entity.Account
@@ -36,8 +34,4 @@ fun replaceFragment(requireActivity: FragmentActivity, container: Int, fragment:
     val fragmentTransaction = manager.beginTransaction()
     fragmentTransaction.replace(container, fragment)
     fragmentTransaction.commit()
-}
-
-fun AppCompatButton.setOnClickListener(function: (View) -> Unit) {
-    setOnClickListener { function(it) }
 }
