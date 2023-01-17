@@ -90,7 +90,8 @@
         <Button
             android:id="@+id/btnMultiple"
             style="@style/buttonOperator"
-            android:text="x" />
+            android:text="x"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
     </LinearLayout>
 
     <LinearLayout style="@style/buttonRow">
