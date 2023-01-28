@@ -10,8 +10,9 @@ import androidx.navigation.fragment.findNavController
 import com.serapercel.trickle.R
 import com.serapercel.trickle.databinding.FragmentMainBinding
 import com.serapercel.trickle.util.replaceFragment
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class MainFragment : Fragment() {
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
