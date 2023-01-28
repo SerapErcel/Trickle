@@ -4,6 +4,9 @@ import android.content.Context
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import com.serapercel.trickle.data.entity.Account
 import com.serapercel.trickle.data.entity.User
 
@@ -34,4 +37,13 @@ fun replaceFragment(requireActivity: FragmentActivity, container: Int, fragment:
     val fragmentTransaction = manager.beginTransaction()
     fragmentTransaction.replace(container, fragment)
     fragmentTransaction.commit()
+}
+
+fun <T> LiveData<T>.observeOnce(lifecycleOwner: LifecycleOwner, observer: Observer<T>) {
+    observe(lifecycleOwner, object : Observer<T> {
+        override fun onChanged(t: T) {
+            removeObserver(this)
+            observer.onChanged(t)
+        }
+    })
 }
