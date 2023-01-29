@@ -1,9 +1,12 @@
 package com.serapercel.trickle.domain.repository
 
 import com.serapercel.trickle.data.entity.Need
+import com.serapercel.trickle.data.entity.User
 import kotlinx.coroutines.flow.Flow
 
 interface NeedsRepository {
+
+    suspend fun getNeeds(user: User) : List<Need>
 
     fun readDatabase(): Flow<List<Need>>
 

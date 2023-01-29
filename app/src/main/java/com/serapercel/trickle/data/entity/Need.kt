@@ -7,12 +7,12 @@ import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-@Entity(tableName="needs_table")
+@Entity(tableName = "needs_table")
 data class Need(
-    @ColumnInfo("name")
-    val name: String?,
     @ColumnInfo("count")
-    val count: String
+    val count: String = "",
+    @ColumnInfo("name")
+    var name: String = ""
 ) : Parcelable {
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0

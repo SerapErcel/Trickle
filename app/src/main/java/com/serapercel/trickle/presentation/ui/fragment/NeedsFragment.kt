@@ -9,10 +9,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.serapercel.trickle.common.adapter.NeedsAdapter
+import com.serapercel.trickle.data.entity.User
 import com.serapercel.trickle.databinding.FragmentNeedsBinding
 import com.serapercel.trickle.presentation.ui.viewModel.NeedsViewModel
 import com.serapercel.trickle.util.NetworkListener
+import com.serapercel.trickle.util.NetworkResult
 import com.serapercel.trickle.util.observeOnce
+import com.serapercel.trickle.util.toastShort
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -26,13 +29,14 @@ class NeedsFragment : Fragment() {
     private val needsAdapter by lazy { NeedsAdapter() }
 
     private lateinit var networkListener: NetworkListener
-
+    lateinit var user: User
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentNeedsBinding.inflate(inflater, container, false)
 
+        user= User("1", "serap@gmail.com")
         needsViewModel = ViewModelProvider(this).get(NeedsViewModel::class.java)
 
         setupRecyclerView()
@@ -77,7 +81,22 @@ class NeedsFragment : Fragment() {
     }
 
     private fun requestFirebaseData() {
-
+        needsViewModel.getNeeds(user)
+        needsViewModel.needsResponse.observe(viewLifecycleOwner){ response ->
+            when(response){
+                is NetworkResult.Success -> {
+                    response.data?.let {
+                        needsAdapter.setData(newData = it)
+                    }
+                }
+                is NetworkResult.Error -> {
+                    requireContext().toastShort(response.message.toString())
+                }
+                is NetworkResult.Loading -> {
+                    requireContext().toastShort("Loading")
+                }
+            }
+        }
     }
 
     private fun loadDataFromCache() {

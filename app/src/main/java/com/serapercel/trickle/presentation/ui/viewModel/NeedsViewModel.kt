@@ -3,14 +3,13 @@ package com.serapercel.trickle.presentation.ui.viewModel
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.serapercel.trickle.data.entity.Need
 import com.serapercel.trickle.domain.repository.NeedsRepository
 import javax.inject.Inject
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
 import com.serapercel.trickle.data.dataStore.DataStoreRepository
+import com.serapercel.trickle.data.entity.User
+import com.serapercel.trickle.util.NetworkResult
 import com.serapercel.trickle.util.toastShort
 import dagger.hilt.android.internal.Contexts
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -29,7 +28,6 @@ class NeedsViewModel @Inject constructor(
 
     val readBackOnline = dataStoreRepository.readBackOnline.asLiveData()
 
-
     // if we enable internet access again
     fun saveBackOnline(backOnline: Boolean) = viewModelScope.launch {
         dataStoreRepository.saveBackOnline(backOnline)
@@ -38,6 +36,40 @@ class NeedsViewModel @Inject constructor(
     /** ROOM **/
     val reedNeeds: LiveData<List<Need>> = repository.readDatabase().asLiveData()
 
+    /** Firebase **/
+    private val _needsResponse: MutableLiveData<NetworkResult<List<Need>>> = MutableLiveData()
+    val needsResponse: LiveData<NetworkResult<List<Need>>> = _needsResponse
+
+    /** Firebase **/
+    fun getNeeds(user: User) = viewModelScope.launch {
+        getNeedsSafeCall(user)
+    }
+
+    private suspend fun getNeedsSafeCall(user: User) {
+        _needsResponse.value = NetworkResult.Loading()
+        if (hasInternetConnection()) {
+            try {
+                val response = repository.getNeeds(user)
+                _needsResponse.value = handleNeedsResponse(response = response)
+            } catch (e: Exception) {
+                _needsResponse.value = NetworkResult.Error(message = e.message)
+
+            }
+        } else {
+            _needsResponse.value = NetworkResult.Error(message = "No Internet Connection.")
+        }
+    }
+
+    private fun handleNeedsResponse(response: List<Need>): NetworkResult<List<Need>> {
+        return when {
+            response.isNotEmpty() -> {
+                NetworkResult.Success(data = response)
+            }
+            else -> {
+                NetworkResult.Error("Get Needs Firebase Error!")
+            }
+        }
+    }
 
     fun showNetworkStatus() {
         if (!networkStatus) {
@@ -67,7 +99,7 @@ class NeedsViewModel @Inject constructor(
 
     /** ROOM */
     private fun offlineCacheRecipes(need: Need) {
-        val newNeed = Need(need.name, need.count)
+        val newNeed = Need( need.count,need.name)
         insertNeed(need = newNeed)
     }
 
