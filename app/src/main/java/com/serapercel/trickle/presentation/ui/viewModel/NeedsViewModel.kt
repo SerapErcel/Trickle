@@ -112,6 +112,13 @@ class NeedsViewModel @Inject constructor(
             repository.insertAllNeeds(needList = needList)
         }
 
+    fun deleteNeed(need: Need)= viewModelScope.launch {
+        repository.deleteNeed(need)
+    }
+
+    fun addNeed(need: Need)= viewModelScope.launch {
+        repository.insertNeeds(need)
+    }
 
     fun showNetworkStatus() {
         if (!networkStatus) {

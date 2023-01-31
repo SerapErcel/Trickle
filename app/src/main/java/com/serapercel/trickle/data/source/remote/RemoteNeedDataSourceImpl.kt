@@ -48,4 +48,12 @@ class RemoteNeedDataSourceImpl @Inject constructor(
         return result
     }
 
+    override suspend fun deleteNeed(need: Need, user: User): Boolean {
+        var result = true
+        dbRef.child(user.email!!.removePunctuation()).child("needs")
+
+        return result
+    }
+
+
 }

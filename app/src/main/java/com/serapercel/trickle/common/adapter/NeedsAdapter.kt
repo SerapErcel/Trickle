@@ -3,13 +3,19 @@ package com.serapercel.trickle.common.adapter
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.serapercel.trickle.data.entity.Need
 import com.serapercel.trickle.databinding.NeedsCardBinding
+import com.serapercel.trickle.presentation.ui.viewModel.NeedsViewModel
 import com.serapercel.trickle.util.NeedsDiffUtil
 
-class NeedsAdapter : RecyclerView.Adapter<NeedsAdapter.NeedsViewHolder>() {
+class NeedsAdapter(
+    private val needsViewModel: NeedsViewModel,
+    private val requireActivity: FragmentActivity
+) :
+    RecyclerView.Adapter<NeedsAdapter.NeedsViewHolder>() {
 
     private var needs = emptyList<Need>()
 
@@ -33,6 +39,15 @@ class NeedsAdapter : RecyclerView.Adapter<NeedsAdapter.NeedsViewHolder>() {
         Log.e("hata", "adapter - onbindviewholder tetiklendi")
         holder.binding.tvNeedsCount.text = currentNeed.count
         holder.binding.tvNeedsName.text = currentNeed.name
+        holder.binding.btnDeleteNeed.setOnClickListener {
+            deleteNeed(currentNeed)
+        }
+    }
+
+    private fun deleteNeed(need: Need) {
+        needsViewModel.deleteNeed(need)
+        val newList = needs.filter { it!=need }
+        setData(newList)
     }
 
     fun setData(newData: List<Need>) {
