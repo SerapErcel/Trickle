@@ -1,6 +1,7 @@
 package com.serapercel.trickle.data.dataStore
 
 import android.content.Context
+import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.*
 import androidx.datastore.preferences.preferencesDataStore
@@ -26,6 +27,7 @@ class DataStoreRepository @Inject constructor(
 
 
     suspend fun saveBackOnline(backOnline: Boolean) {
+        Log.e("hata", "DataStoreRepository saveBackOnline tetiklendi ${backOnline}")
         dataStore.edit { preferences ->
             preferences[PreferenceKeys.backOnline] = backOnline
         }
@@ -43,5 +45,6 @@ class DataStoreRepository @Inject constructor(
         .map { preferences ->
             val backOnline = preferences[PreferenceKeys.backOnline] ?: false
             backOnline
+
         }
 }

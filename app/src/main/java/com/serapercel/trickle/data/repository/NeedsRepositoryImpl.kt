@@ -20,7 +20,11 @@ class NeedsRepositoryImpl @Inject constructor(
 
     override suspend fun insertNeeds(need: Need) = localNeedsDataSource.insertNeeds(need)
 
+    override suspend fun insertAllNeeds(needList: List<Need>) = localNeedsDataSource.insertAllNeeds(needList)
+
     override suspend fun deleteNeed(need: Need) = localNeedsDataSource.deleteNeed(need)
+
+    override suspend fun deleteAllNeed() = localNeedsDataSource.deleteAllNeed()
 
     override suspend fun updateNeed(id: Int?, name: String?, count: String?) {
         localNeedsDataSource.updateNeed(id, name, count)

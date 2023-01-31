@@ -3,6 +3,7 @@ package com.serapercel.trickle.presentation.ui.viewModel
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.util.Log
 import androidx.lifecycle.*
 import com.serapercel.trickle.data.entity.Need
 import com.serapercel.trickle.domain.repository.NeedsRepository
@@ -28,9 +29,10 @@ class NeedsViewModel @Inject constructor(
 
     val readBackOnline = dataStoreRepository.readBackOnline.asLiveData()
 
-    // if we enable internet access again
-    fun saveBackOnline(backOnline: Boolean) = viewModelScope.launch {
+    private fun saveBackOnline(backOnline: Boolean) = viewModelScope.launch {
         dataStoreRepository.saveBackOnline(backOnline)
+        Log.e("hata", "ViewModel saveBackOnline - backOnline ${backOnline}")
+
     }
 
     /** ROOM **/
@@ -40,17 +42,30 @@ class NeedsViewModel @Inject constructor(
     private val _needsResponse: MutableLiveData<NetworkResult<List<Need>>> = MutableLiveData()
     val needsResponse: LiveData<NetworkResult<List<Need>>> = _needsResponse
 
-    /** Firebase **/
     fun getNeeds(user: User) = viewModelScope.launch {
         getNeedsSafeCall(user)
+        Log.e("hata", "getNeeds firebase tetiklendi ")
+
     }
 
     private suspend fun getNeedsSafeCall(user: User) {
+        Log.e("hata","get needs safe call")
         _needsResponse.value = NetworkResult.Loading()
         if (hasInternetConnection()) {
+            Log.e("hata","get needs safe call hasInternet connection tetiklendi")
+
             try {
                 val response = repository.getNeeds(user)
                 _needsResponse.value = handleNeedsResponse(response = response)
+
+                val ndsResponse = _needsResponse.value!!.data
+
+                if (ndsResponse !=null) {
+                    offlineCacheRecipes(ndsResponse)
+                    Log.e("hata","getNeedsSafeCall if ${ndsResponse.size}")
+
+                }
+
             } catch (e: Exception) {
                 _needsResponse.value = NetworkResult.Error(message = e.message)
 
@@ -70,19 +85,6 @@ class NeedsViewModel @Inject constructor(
             }
         }
     }
-
-    fun showNetworkStatus() {
-        if (!networkStatus) {
-            context.toastShort("No Internet Connetciton")
-            saveBackOnline(true)
-        } else if (networkStatus) {
-            if (backOnline) {
-                context.toastShort("We're back online.")
-                saveBackOnline(false)
-            }
-        }
-    }
-
     private fun hasInternetConnection(): Boolean {
         val connectivityManager = Contexts.getApplication(context).getSystemService(
             Context.CONNECTIVITY_SERVICE
@@ -98,14 +100,33 @@ class NeedsViewModel @Inject constructor(
     }
 
     /** ROOM */
-    private fun offlineCacheRecipes(need: Need) {
-        val newNeed = Need( need.count,need.name)
-        insertNeed(need = newNeed)
+    private fun offlineCacheRecipes(needList: List<Need>) {
+        Log.e("hata", "offlineCacheRecipes ${needList.size}")
+            insertNeed(needList = needList)
+
     }
 
-    private fun insertNeed(need: Need) =
+    private fun insertNeed(needList: List<Need>) =
         viewModelScope.launch(Dispatchers.IO) {
-            repository.insertNeeds(need = need)
+            repository.deleteAllNeed()
+            repository.insertAllNeeds(needList = needList)
         }
+
+
+    fun showNetworkStatus() {
+        if (!networkStatus) {
+            Log.e("hata", "showNetworkStatus  if - network status ${networkStatus}")
+            context.toastShort("No Internet Connetciton")
+            saveBackOnline(true)
+        } else if (networkStatus) {
+            if (backOnline) {
+                Log.e("hata", "showNetworkStatus else - network status ${networkStatus}")
+                context.toastShort("We're back online.")
+                saveBackOnline(false)
+            }
+        }
+    }
+
+
 
 }

@@ -10,8 +10,14 @@ interface NeedDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(need: Need)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAll(needList: List<Need>)
+
     @Delete
     suspend fun delete(need: Need)
+
+    @Query("DELETE from needs_table")
+    suspend fun deleteAllNeed()
 
     @Query("SELECT * from needs_table order by id ASC")
     fun getAllNeeds(): Flow<List<Need>>
