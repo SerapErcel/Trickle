@@ -8,6 +8,8 @@ interface NeedsRepository {
 
     suspend fun getNeeds(user: User) : List<Need>
 
+    suspend fun addNeed(need: Need, user: User): Boolean
+
     fun readDatabase(): Flow<List<Need>>
 
     suspend fun insertNeeds(need: Need)

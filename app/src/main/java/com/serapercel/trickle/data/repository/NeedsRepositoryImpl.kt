@@ -14,13 +14,15 @@ class NeedsRepositoryImpl @Inject constructor(
 ) : NeedsRepository {
     override suspend fun getNeeds(user: User): List<Need> = remoteNeedDataSource.getNeeds(user)
 
+    override suspend fun addNeed(need: Need, user: User): Boolean =
+        remoteNeedDataSource.addNeed(need, user)
 
     override fun readDatabase(): Flow<List<Need>> = localNeedsDataSource.readDatabase()
 
-
     override suspend fun insertNeeds(need: Need) = localNeedsDataSource.insertNeeds(need)
 
-    override suspend fun insertAllNeeds(needList: List<Need>) = localNeedsDataSource.insertAllNeeds(needList)
+    override suspend fun insertAllNeeds(needList: List<Need>) =
+        localNeedsDataSource.insertAllNeeds(needList)
 
     override suspend fun deleteNeed(need: Need) = localNeedsDataSource.deleteNeed(need)
 

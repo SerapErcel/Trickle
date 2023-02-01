@@ -116,10 +116,6 @@ class NeedsViewModel @Inject constructor(
         repository.deleteNeed(need)
     }
 
-    fun addNeed(need: Need)= viewModelScope.launch {
-        repository.insertNeeds(need)
-    }
-
     fun showNetworkStatus() {
         if (!networkStatus) {
             Log.e("hata", "showNetworkStatus  if - network status ${networkStatus}")

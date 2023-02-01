@@ -1,6 +1,5 @@
 package com.serapercel.trickle.presentation.ui.fragment
 
-import android.opengl.Visibility
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -14,9 +13,12 @@ import com.serapercel.trickle.R
 import com.serapercel.trickle.databinding.FragmentHomeBinding
 import com.serapercel.trickle.presentation.ui.viewModel.HomeViewModel
 import com.serapercel.trickle.util.replaceFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
     private lateinit var viewModel: HomeViewModel
+
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
@@ -51,18 +53,20 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
+
+        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
         replaceFragment(requireActivity(), R.id.mainContainer, MainFragment())
         binding.fab.setOnClickListener {
             fabButtonClicked()
         }
         binding.btnAddNeed.setOnClickListener {
-            replaceFragment(requireActivity(), R.id.mainContainer, NeedsFragment())
+            replaceFragment(requireActivity(), R.id.mainContainer, AddNeedFragment())
             fabButtonClicked()
         }
         binding.btnAddTransaction.setOnClickListener {
@@ -107,11 +111,11 @@ class HomeFragment : Fragment() {
     }
 
     private fun setAnimation(clicked: Boolean) {
-        if (!clicked){
+        if (!clicked) {
             binding.btnAddNeed.startAnimation(fromBottom)
             binding.btnAddTransaction.startAnimation(fromBottom)
             binding.fab.startAnimation(rotateOpen)
-        }else{
+        } else {
             binding.btnAddNeed.startAnimation(toBottom)
             binding.btnAddTransaction.startAnimation(toBottom)
             binding.fab.startAnimation(rotateClose)
@@ -128,11 +132,11 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun setClickable(clicked: Boolean){
+    private fun setClickable(clicked: Boolean) {
         if (!clicked) {
             binding.btnAddTransaction.isClickable = true
             binding.btnAddNeed.isClickable = true
-        }else{
+        } else {
             binding.btnAddTransaction.isClickable = false
             binding.btnAddNeed.isClickable = false
         }

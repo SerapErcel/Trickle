@@ -37,7 +37,10 @@ class RemoteNeedDataSourceImpl @Inject constructor(
 
     override suspend fun addNeed(need: Need, user: User): Boolean {
         var result = true
-        dbRef.child(user.email!!.removePunctuation()).child("needs").setValue(need)
+
+        val needId = dbRef.push().key!!
+
+        dbRef.child(user.email!!.removePunctuation()).child("needs").child(needId).setValue(need)
             .addOnSuccessListener {
                 result = true
             }.addOnFailureListener { exception ->
@@ -49,7 +52,7 @@ class RemoteNeedDataSourceImpl @Inject constructor(
     }
 
     override suspend fun deleteNeed(need: Need, user: User): Boolean {
-        var result = true
+        val result = true
         dbRef.child(user.email!!.removePunctuation()).child("needs")
 
         return result
