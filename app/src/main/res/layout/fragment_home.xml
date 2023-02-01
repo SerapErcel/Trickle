@@ -20,7 +20,7 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.5" />
 
-    <ImageButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnAddTransaction"
         style="@style/buttonFab"
         android:layout_marginEnd="32dp"
@@ -31,7 +31,7 @@
         app:tint="@color/backgroundColor"
         tools:visibility="visible" />
 
-    <ImageButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnAddNeed"
         style="@style/buttonFab"
         android:layout_marginStart="32dp"
@@ -109,6 +109,7 @@
             android:layout_height="wrap_content"
             android:contentDescription="@string/design"
             android:src="@drawable/add"
+            android:focusable="true"
             app:layout_anchor="@id/bottomAppBar"
             app:tint="@color/secondaryExtraLightColor" />
 
