@@ -22,11 +22,13 @@ class RemoteNeedDataSourceImpl @Inject constructor(
             override fun onDataChange(snapshot: DataSnapshot) {
                 needList.clear()
                 if (snapshot.exists()) {
-                    for (empSnap in snapshot.child(user.email!!.removePunctuation()).child("needs").children) {
+                    for (empSnap in snapshot.child(user.email!!.removePunctuation())
+                        .child("needs").children) {
                         needList.add(empSnap.getValue(Need::class.java)!!)
                     }
                 }
             }
+
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
             }
@@ -39,6 +41,7 @@ class RemoteNeedDataSourceImpl @Inject constructor(
         var result = true
 
         val needId = dbRef.push().key!!
+        need.id = needId
 
         dbRef.child(user.email!!.removePunctuation()).child("needs").child(needId).setValue(need)
             .addOnSuccessListener {
@@ -52,9 +55,15 @@ class RemoteNeedDataSourceImpl @Inject constructor(
     }
 
     override suspend fun deleteNeed(need: Need, user: User): Boolean {
-        val result = true
-        dbRef.child(user.email!!.removePunctuation()).child("needs")
-
+        var result = true
+        dbRef.child(user.email!!.removePunctuation()).child("needs").child(need.id).removeValue()
+            .addOnSuccessListener {
+                result = true
+            }.addOnFailureListener { exception ->
+                exception.localizedMessage?.let {
+                    result = false
+                }
+            }
         return result
     }
 

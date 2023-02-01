@@ -6,9 +6,11 @@ import kotlinx.coroutines.flow.Flow
 
 interface NeedsRepository {
 
-    suspend fun getNeeds(user: User) : List<Need>
+    suspend fun getNeeds(user: User): List<Need>
 
     suspend fun addNeed(need: Need, user: User): Boolean
+
+    suspend fun deleteNeed(need: Need, user: User): Boolean
 
     fun readDatabase(): Flow<List<Need>>
 

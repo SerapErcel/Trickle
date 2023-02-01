@@ -1,19 +1,21 @@
 package com.serapercel.trickle.common.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.serapercel.trickle.data.entity.Need
+import com.serapercel.trickle.data.entity.User
 import com.serapercel.trickle.databinding.NeedsCardBinding
 import com.serapercel.trickle.presentation.ui.viewModel.NeedsViewModel
 import com.serapercel.trickle.util.NeedsDiffUtil
+import com.serapercel.trickle.util.toastShort
 
 class NeedsAdapter(
     private val needsViewModel: NeedsViewModel,
-    private val requireActivity: FragmentActivity
+    private val requireActivity: FragmentActivity,
+    private val user: User
 ) :
     RecyclerView.Adapter<NeedsAdapter.NeedsViewHolder>() {
 
@@ -36,7 +38,6 @@ class NeedsAdapter(
 
     override fun onBindViewHolder(holder: NeedsViewHolder, position: Int) {
         val currentNeed = needs[position]
-        Log.e("hata", "adapter - onbindviewholder tetiklendi")
         holder.binding.tvNeedsCount.text = currentNeed.count
         holder.binding.tvNeedsName.text = currentNeed.name
         holder.binding.btnDeleteNeed.setOnClickListener {
@@ -45,9 +46,15 @@ class NeedsAdapter(
     }
 
     private fun deleteNeed(need: Need) {
-        needsViewModel.deleteNeed(need)
-        val newList = needs.filter { it!=need }
-        setData(newList)
+
+        if (needsViewModel.networkStatus) {
+            needsViewModel.remoweNeed(need, user)
+            needsViewModel.getNeeds(user)
+            val newList = needs.filter { it != need }
+            setData(newList)
+        } else {
+            requireActivity.toastShort("Check the Ethernet Connection!")
+        }
     }
 
     fun setData(newData: List<Need>) {
@@ -55,7 +62,6 @@ class NeedsAdapter(
         val diffUtilResult = DiffUtil.calculateDiff(needsDiffUtil)
         needs = newData
         diffUtilResult.dispatchUpdatesTo(this)
-        Log.e("hata", "adapter - setdata tetiklendi sizee: ${newData.size}")
 
     }
 }

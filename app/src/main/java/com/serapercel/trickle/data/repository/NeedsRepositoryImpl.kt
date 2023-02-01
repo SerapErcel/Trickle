@@ -17,6 +17,9 @@ class NeedsRepositoryImpl @Inject constructor(
     override suspend fun addNeed(need: Need, user: User): Boolean =
         remoteNeedDataSource.addNeed(need, user)
 
+    override suspend fun deleteNeed(need: Need, user: User): Boolean =
+        remoteNeedDataSource.deleteNeed(need, user)
+
     override fun readDatabase(): Flow<List<Need>> = localNeedsDataSource.readDatabase()
 
     override suspend fun insertNeeds(need: Need) = localNeedsDataSource.insertNeeds(need)

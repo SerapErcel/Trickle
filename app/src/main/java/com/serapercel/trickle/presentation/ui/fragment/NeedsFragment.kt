@@ -1,7 +1,6 @@
 package com.serapercel.trickle.presentation.ui.fragment
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -27,7 +26,7 @@ class NeedsFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var needsViewModel: NeedsViewModel
-    private val needsAdapter by lazy { NeedsAdapter() }
+    private val needsAdapter by lazy { NeedsAdapter(needsViewModel, requireActivity(), user) }
 
     private lateinit var networkListener: NetworkListener
     lateinit var user: User
@@ -49,12 +48,10 @@ class NeedsFragment : Fragment() {
                 .collect { status ->
                     needsViewModel.networkStatus = status
                     needsViewModel.showNetworkStatus()
-                    if(status){
+                    if (status) {
                         requestFirebaseData()
-                        Log.e("hata", "status = $status")
-                    }else{
+                    } else {
                         readDatabase()
-                        Log.e("hata", "status = $status")
 
                     }
                 }
@@ -66,8 +63,6 @@ class NeedsFragment : Fragment() {
     private fun observeBackOnline() {
         needsViewModel.readBackOnline.observe(viewLifecycleOwner) {
             needsViewModel.backOnline = it
-            Log.e("hata", "observeBackOnline tetiklendi - backOnline ${it}")
-
         }
     }
 
@@ -82,10 +77,8 @@ class NeedsFragment : Fragment() {
         lifecycleScope.launch {
             needsViewModel.reedNeeds.observeOnce(viewLifecycleOwner) { database ->
                 if (database.isNotEmpty()) {
-                    Log.e("hata", "database = $database")
                     needsAdapter.setData(database)
                 } else {
-                    Log.e("hata", "database is empty")
                     requestFirebaseData()
                 }
 
@@ -94,13 +87,11 @@ class NeedsFragment : Fragment() {
     }
 
     private fun requestFirebaseData() {
-        Log.e("hata", "request firebase data")
         needsViewModel.getNeeds(user)
         needsViewModel.needsResponse.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is NetworkResult.Success -> {
                     response.data?.let {
-                        Log.e("hata", "request firebase data ${response.data}")
                         needsAdapter.setData(newData = it)
                     }
                 }
@@ -116,11 +107,9 @@ class NeedsFragment : Fragment() {
     }
 
     private fun loadDataFromCache() {
-        Log.e("hata", "loadDataFromCache tetiklendi ")
         lifecycleScope.launch {
             needsViewModel.reedNeeds.observe(viewLifecycleOwner) { database ->
                 if (database.isNotEmpty()) {
-                    Log.e("hata", "loadDataFromCache")
                     needsAdapter.setData(database)
                 }
             }

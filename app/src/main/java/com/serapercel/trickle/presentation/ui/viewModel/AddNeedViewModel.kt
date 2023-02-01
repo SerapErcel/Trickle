@@ -3,7 +3,6 @@ package com.serapercel.trickle.presentation.ui.viewModel
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -37,7 +36,6 @@ class AddNeedViewModel @Inject constructor(
     private suspend fun addNeedSafeCall(need: Need, user: User) {
         _needsResponse.value = NetworkResult.Loading()
         if (hasInternetConnection()) {
-            Log.e("hata", "add needs safe call hasInternet connection tetiklendi")
 
             try {
                 val response = repository.addNeed(need, user)
@@ -60,7 +58,6 @@ class AddNeedViewModel @Inject constructor(
 
     private fun offlineCacheRecipes(need: Need) {
         insertNeed(need = need)
-
     }
 
     private fun insertNeed(need: Need) =

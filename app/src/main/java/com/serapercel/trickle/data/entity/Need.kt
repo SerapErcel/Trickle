@@ -14,6 +14,6 @@ data class Need(
     @ColumnInfo("name")
     var name: String = ""
 ) : Parcelable {
-    @PrimaryKey(autoGenerate = true)
-    var id: Int = 0
+    @PrimaryKey(autoGenerate = false)
+    var id: String = ""
 }
