@@ -31,4 +31,7 @@
     <string name="currency">Currency</string>
     <string name="last_transactions">Last Transactıons</string>
     <string name="filter">Fılter</string>
+    <string name="name">Name</string>
+    <string name="count">Count</string>
+    <string name="add_need">Add Need</string>
 </resources>
