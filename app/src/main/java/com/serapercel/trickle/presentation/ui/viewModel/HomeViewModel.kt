@@ -5,9 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.serapercel.trickle.data.entity.Account
 import com.serapercel.trickle.util.toAccount
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-
-class HomeViewModel : ViewModel(){
+@HiltViewModel
+class HomeViewModel @Inject constructor(
+) : ViewModel() {
     val accountLiveData = MutableLiveData<Account>()
 
     fun getAccountData(context: Context){
@@ -18,4 +21,5 @@ class HomeViewModel : ViewModel(){
         val sharedPreference =  context.getSharedPreferences("ACCOUNT", Context.MODE_PRIVATE)
         return sharedPreference.getString("account","defVAlue is comming")!!.toAccount()
     }
+
 }

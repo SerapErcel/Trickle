@@ -14,8 +14,16 @@ class LocalNeedsDataSourceImpl @Inject constructor(
         needDao.insert(need = need)
     }
 
+    override suspend fun insertAllNeeds(needList: List<Need>) {
+        needDao.insertAll(needList = needList)
+    }
+
     override suspend fun deleteNeed(need: Need) {
         needDao.delete(need = need)
+    }
+
+    override suspend fun deleteAllNeed() {
+        needDao.deleteAllNeed()
     }
 
     override suspend fun updateNeed(id: Int?, name: String?, count: String?) {

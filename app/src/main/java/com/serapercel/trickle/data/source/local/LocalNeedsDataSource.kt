@@ -9,7 +9,11 @@ interface LocalNeedsDataSource {
 
     suspend fun insertNeeds(need: Need)
 
+    suspend fun insertAllNeeds(needList: List<Need>)
+
     suspend fun deleteNeed(need: Need)
+
+    suspend fun deleteAllNeed()
 
     suspend fun updateNeed(id: Int?, name: String?, count: String?)
 }
