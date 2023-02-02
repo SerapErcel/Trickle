@@ -24,4 +24,14 @@
         <item name="android:textSize">30sp</item>
         <item name="android:textColor">@color/secondaryColor</item>
     </style>
+
+    <style name="buttonFab">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:contentDescription">@string/design</item>
+        <item name="android:background">@drawable/shape</item>
+        <item name="android:backgroundTint">@color/primaryColor</item>
+        <item name="android:padding">8dp</item>
+
+    </style>
 </resources>
