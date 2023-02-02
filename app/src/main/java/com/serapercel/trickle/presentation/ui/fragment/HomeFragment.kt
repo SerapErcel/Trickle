@@ -61,12 +61,16 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val bundle = arguments
+        val args = HomeFragmentArgs.fromBundle(bundle!!)
+        val user = args.account.user
+
         replaceFragment(requireActivity(), R.id.mainContainer, MainFragment())
         binding.fab.setOnClickListener {
             fabButtonClicked()
         }
         binding.btnAddNeed.setOnClickListener {
-            replaceFragment(requireActivity(), R.id.mainContainer, AddNeedFragment())
+            replaceFragment(requireActivity(), R.id.mainContainer, AddNeedFragment(user!!))
             fabButtonClicked()
         }
         binding.btnAddTransaction.setOnClickListener {
@@ -83,7 +87,7 @@ class HomeFragment : Fragment() {
                 R.id.needsFragment -> replaceFragment(
                     requireActivity(),
                     R.id.mainContainer,
-                    NeedsFragment()
+                    NeedsFragment(user!!)
                 )
                 R.id.profileFragment -> replaceFragment(
                     requireActivity(),

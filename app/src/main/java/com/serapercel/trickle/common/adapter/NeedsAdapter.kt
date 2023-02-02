@@ -11,11 +11,12 @@ import com.serapercel.trickle.databinding.NeedsCardBinding
 import com.serapercel.trickle.presentation.ui.viewModel.NeedsViewModel
 import com.serapercel.trickle.util.NeedsDiffUtil
 import com.serapercel.trickle.util.toastShort
+import javax.inject.Inject
 
-class NeedsAdapter(
+class NeedsAdapter @Inject constructor(
     private val needsViewModel: NeedsViewModel,
     private val requireActivity: FragmentActivity,
-    private val user: User
+    val user: User
 ) :
     RecyclerView.Adapter<NeedsAdapter.NeedsViewHolder>() {
 

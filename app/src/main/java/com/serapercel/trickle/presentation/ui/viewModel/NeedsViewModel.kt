@@ -21,6 +21,7 @@ class NeedsViewModel @Inject constructor(
     private val repository: NeedsRepository,
     private val context: Context,
     private val dataStoreRepository: DataStoreRepository,
+    private val user: User
 
     ) : ViewModel() {
     var networkStatus = false
@@ -28,7 +29,7 @@ class NeedsViewModel @Inject constructor(
 
     val readBackOnline = dataStoreRepository.readBackOnline.asLiveData()
 
-    var user = User("1", "serap@gmail.com")
+    //var user = User("1", "serap@gmail.com")
 
     private fun saveBackOnline(backOnline: Boolean) = viewModelScope.launch {
         dataStoreRepository.saveBackOnline(backOnline)

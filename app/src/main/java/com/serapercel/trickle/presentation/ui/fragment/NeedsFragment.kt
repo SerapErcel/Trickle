@@ -18,9 +18,12 @@ import com.serapercel.trickle.util.observeOnce
 import com.serapercel.trickle.util.toastShort
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
-class NeedsFragment : Fragment() {
+class NeedsFragment @Inject constructor(
+    var user: User
+) : Fragment() {
 
     private var _binding: FragmentNeedsBinding? = null
     private val binding get() = _binding!!
@@ -29,14 +32,12 @@ class NeedsFragment : Fragment() {
     private val needsAdapter by lazy { NeedsAdapter(needsViewModel, requireActivity(), user) }
 
     private lateinit var networkListener: NetworkListener
-    lateinit var user: User
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentNeedsBinding.inflate(inflater, container, false)
 
-        user = User("1", "serap@gmail.com")
         needsViewModel = ViewModelProvider(this).get(NeedsViewModel::class.java)
 
         setupRecyclerView()

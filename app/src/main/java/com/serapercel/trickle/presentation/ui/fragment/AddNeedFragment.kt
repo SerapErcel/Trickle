@@ -13,13 +13,15 @@ import com.serapercel.trickle.databinding.FragmentAddNeedBinding
 import com.serapercel.trickle.presentation.ui.viewModel.AddNeedViewModel
 import com.serapercel.trickle.util.NetworkResult
 import com.serapercel.trickle.util.toastShort
+import javax.inject.Inject
 
-class AddNeedFragment : Fragment() {
+class AddNeedFragment @Inject constructor(
+    var user: User
+): Fragment() {
     private var _binding: FragmentAddNeedBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var addNeedViewModel: AddNeedViewModel
-    lateinit var user: User
     private lateinit var count: String
     private lateinit var name: String
 
@@ -29,7 +31,6 @@ class AddNeedFragment : Fragment() {
     ): View {
         _binding = FragmentAddNeedBinding.inflate(inflater, container, false)
 
-        user = User("1", "serap@gmail.com")
         addNeedViewModel = ViewModelProvider(requireActivity()).get(AddNeedViewModel::class.java)
 
         binding.btnSaveNeed.setOnClickListener {
