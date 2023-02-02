@@ -65,12 +65,12 @@ class HomeFragment : Fragment() {
         val args = HomeFragmentArgs.fromBundle(bundle!!)
         val user = args.account.user
 
-        replaceFragment(requireActivity(), R.id.mainContainer, MainFragment())
+        replaceFragment(requireActivity(), R.id.mainContainer, MainFragment(user!!))
         binding.fab.setOnClickListener {
             fabButtonClicked()
         }
         binding.btnAddNeed.setOnClickListener {
-            replaceFragment(requireActivity(), R.id.mainContainer, AddNeedFragment(user!!))
+            replaceFragment(requireActivity(), R.id.mainContainer, AddNeedFragment(user))
             fabButtonClicked()
         }
         binding.btnAddTransaction.setOnClickListener {
@@ -82,12 +82,12 @@ class HomeFragment : Fragment() {
                 R.id.mainFragment -> replaceFragment(
                     requireActivity(),
                     R.id.mainContainer,
-                    MainFragment()
+                    MainFragment(user)
                 )
                 R.id.needsFragment -> replaceFragment(
                     requireActivity(),
                     R.id.mainContainer,
-                    NeedsFragment(user!!)
+                    NeedsFragment(user)
                 )
                 R.id.profileFragment -> replaceFragment(
                     requireActivity(),

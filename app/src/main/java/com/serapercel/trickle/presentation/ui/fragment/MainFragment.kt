@@ -5,15 +5,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
 import com.serapercel.trickle.R
+import com.serapercel.trickle.data.entity.User
 import com.serapercel.trickle.databinding.FragmentMainBinding
 import com.serapercel.trickle.util.replaceFragment
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainFragment : Fragment() {
+class MainFragment @Inject constructor(
+    var user: User
+) : Fragment() {
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
 
@@ -28,16 +30,16 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         replaceFragment(requireActivity(), R.id.fragmentContainerOverview, MainOverviewFragment())
-        replaceFragment(requireActivity(), R.id.fragmentContainerNeeds, NeedsOverviewFragment())
+        replaceFragment(requireActivity(), R.id.fragmentContainerNeeds, NeedsOverviewFragment(user))
         replaceFragment(requireActivity(), R.id.fragmentContainerCurrency, CurrencyFragment())
         replaceFragment(
             requireActivity(),
             R.id.fragmentContainerTransactions,
             LastTransactionsFragment()
         )
-        binding.btnCalculate.setOnClickListener {
-            replaceFragment(requireActivity(),R.id.mainContainer, CalculatorFragment())
 
+        binding.btnCalculate.setOnClickListener {
+            replaceFragment(requireActivity(), R.id.mainContainer, CalculatorFragment())
         }
     }
 

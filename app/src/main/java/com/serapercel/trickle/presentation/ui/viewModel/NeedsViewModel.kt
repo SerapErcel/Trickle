@@ -23,13 +23,11 @@ class NeedsViewModel @Inject constructor(
     private val dataStoreRepository: DataStoreRepository,
     private val user: User
 
-    ) : ViewModel() {
+) : ViewModel() {
     var networkStatus = false
     var backOnline = false
 
     val readBackOnline = dataStoreRepository.readBackOnline.asLiveData()
-
-    //var user = User("1", "serap@gmail.com")
 
     private fun saveBackOnline(backOnline: Boolean) = viewModelScope.launch {
         dataStoreRepository.saveBackOnline(backOnline)
@@ -44,7 +42,6 @@ class NeedsViewModel @Inject constructor(
 
     fun getNeeds(user: User) = viewModelScope.launch {
         getNeedsSafeCall(user)
-
     }
 
     private suspend fun getNeedsSafeCall(user: User) {
@@ -59,7 +56,6 @@ class NeedsViewModel @Inject constructor(
 
                 if (ndsResponse != null) {
                     offlineCacheRecipes(ndsResponse)
-
                 }
 
             } catch (e: Exception) {
@@ -164,6 +160,4 @@ class NeedsViewModel @Inject constructor(
             }
         }
     }
-
-
 }

@@ -63,6 +63,5 @@ class NeedsAdapter @Inject constructor(
         val diffUtilResult = DiffUtil.calculateDiff(needsDiffUtil)
         needs = newData
         diffUtilResult.dispatchUpdatesTo(this)
-
     }
 }
