@@ -1,9 +1,9 @@
 package com.serapercel.trickle.di
 
-import com.serapercel.trickle.data.source.local.LocalNeedsDataSource
-import com.serapercel.trickle.data.source.local.LocalNeedsDataSourceImpl
-import com.serapercel.trickle.data.source.remote.RemoteNeedDataSource
-import com.serapercel.trickle.data.source.remote.RemoteNeedDataSourceImpl
+import com.serapercel.trickle.data.source.local.LocalDataSource
+import com.serapercel.trickle.data.source.local.LocalDataSourceImpl
+import com.serapercel.trickle.data.source.remote.RemoteDataSource
+import com.serapercel.trickle.data.source.remote.RemoteDataSourceImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -18,12 +18,12 @@ abstract class DataSourceModule {
     @Binds
     @Singleton
     abstract fun provideLocalDataSource(
-        localNeedsDataSourceImpl: LocalNeedsDataSourceImpl
-    ): LocalNeedsDataSource
+        localDataSourceImpl: LocalDataSourceImpl
+    ): LocalDataSource
 
     @Binds
     @Singleton
     abstract fun provideRemoteDataSource(
-        remoteDataSourceImpl: RemoteNeedDataSourceImpl
-    ): RemoteNeedDataSource
+        remoteDataSourceImpl: RemoteDataSourceImpl
+    ): RemoteDataSource
 }
