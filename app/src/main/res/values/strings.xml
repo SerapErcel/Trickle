@@ -34,4 +34,10 @@
     <string name="name">Name</string>
     <string name="count">Count</string>
     <string name="add_need">Add Need</string>
+    <string name="pick_date">PICK DATE</string>
+    <string name="price">Price</string>
+    <string name="title">Title</string>
+    <string name="save_transaction">SAVE TRANSACTION</string>
+    <string name="expense">Expense</string>
+    <string name="income">Income</string>
 </resources>

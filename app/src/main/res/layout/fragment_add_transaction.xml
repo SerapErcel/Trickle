@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.ui.fragment.AddTransactionFragment">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/etTitleLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/title"
+        android:textColor="@color/secondaryDarkColor"
+        android:textColorHint="@color/secondaryColor"
+        app:layout_constraintBottom_toTopOf="@+id/etPriceLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="32dp"
+            android:layout_marginBottom="24dp"
+            android:backgroundTint="@color/backgroundColor"
+            android:ems="10"
+            android:importantForAutofill="no"
+            android:inputType="textPersonName"
+            android:textColor="@color/secondaryDarkColor"
+            android:textColorHint="@color/secondaryColor"
+            android:textSize="26sp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/etPriceLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/price"
+        android:textColor="@color/secondaryDarkColor"
+        android:textColorHint="@color/secondaryColor"
+        app:layout_constraintBottom_toTopOf="@+id/switchIncome"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etTitleLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="32dp"
+            android:layout_marginBottom="24dp"
+            android:background="@null"
+            android:backgroundTint="@color/backgroundColor"
+            android:ems="10"
+            android:importantForAutofill="no"
+            android:inputType="textPersonName"
+            android:textColor="@color/secondaryDarkColor"
+            android:textColorHint="@color/secondaryColor"
+            android:textSize="26sp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnPickDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:backgroundTint="@color/secondaryDarkColor"
+        android:text="@string/pick_date"
+        android:textColor="@color/textColor"
+        android:textSize="16sp"
+        app:cornerRadius="20dp"
+        app:layout_constraintBottom_toTopOf="@id/btnSaveTransaction"
+        app:layout_constraintEnd_toEndOf="@+id/switchIncome"
+        app:layout_constraintStart_toStartOf="@+id/switchIncome"
+        app:layout_constraintTop_toBottomOf="@+id/switchIncome" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSaveTransaction"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:backgroundTint="@color/secondaryColor"
+        android:text="@string/save_transaction"
+        android:textColor="@color/textColor"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnPickDate" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switchIncome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:textOff="@string/expense"
+        android:textOn="@string/income"
+        android:thumb="@drawable/switch_thumb"
+        app:layout_constraintBottom_toTopOf="@id/btnPickDate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etPriceLayout"
+        app:showText="true"
+        app:thumbTextPadding="16dp"
+        app:track="@drawable/switch_track" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
