@@ -8,9 +8,9 @@ interface TransactionRepository {
 
     suspend fun getTransactions(user: User): Flow<List<ITransaction>>
 
-    suspend fun addTransaction(transaction: ITransaction, user: User)
+    suspend fun addTransaction(transaction: ITransaction, user: User): Boolean
 
-    suspend fun deleteTransaction(transaction: ITransaction, user: User)
+    suspend fun deleteTransaction(transaction: ITransaction, user: User): Boolean
 
     suspend fun deleteAllTransactions(user: User)
 
