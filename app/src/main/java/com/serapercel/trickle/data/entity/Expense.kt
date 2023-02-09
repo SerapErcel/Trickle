@@ -6,12 +6,16 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Expense(
+
     override val account: Account,
     override val title: String,
     override val price: String,
     override val date: String,
-): ITransaction, Parcelable {
+
+) : ITransaction, Parcelable {
+
     override val income: Boolean = false
+
     @PrimaryKey(autoGenerate = false)
     override var id: String = ""
 }

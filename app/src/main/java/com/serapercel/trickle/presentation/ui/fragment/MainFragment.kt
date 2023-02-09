@@ -16,6 +16,7 @@ import javax.inject.Inject
 class MainFragment @Inject constructor(
     var user: User
 ) : Fragment() {
+
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
 

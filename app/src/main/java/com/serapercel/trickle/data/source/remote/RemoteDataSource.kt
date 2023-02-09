@@ -9,7 +9,9 @@ interface RemoteDataSource {
 
     /** Needs **/
     suspend fun getNeeds(user: User): List<Need>
+
     suspend fun addNeed(need: Need, user: User): Boolean
+
     suspend fun deleteNeed(need: Need, user: User): Boolean
 
     /** Transactions **/

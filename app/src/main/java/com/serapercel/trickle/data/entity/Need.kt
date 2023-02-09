@@ -9,11 +9,15 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 @Entity(tableName = "needs_table")
 data class Need(
+
     @ColumnInfo("count")
     val count: String = "",
+
     @ColumnInfo("name")
     var name: String = ""
+
 ) : Parcelable {
+
     @PrimaryKey(autoGenerate = false)
     var id: String = ""
 }

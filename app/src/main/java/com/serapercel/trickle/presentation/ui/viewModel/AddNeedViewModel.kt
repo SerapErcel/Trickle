@@ -7,7 +7,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.serapercel.trickle.data.dataStore.DataStoreRepository
 import com.serapercel.trickle.data.entity.Need
 import com.serapercel.trickle.data.entity.User
 import com.serapercel.trickle.domain.repository.NeedsRepository
@@ -22,9 +21,8 @@ import javax.inject.Inject
 class AddNeedViewModel @Inject constructor(
     private val repository: NeedsRepository,
     private val context: Context,
-    private val dataStoreRepository: DataStoreRepository
 
-) : ViewModel() {
+    ) : ViewModel() {
     /** Firebase **/
     private val _needsResponse: MutableLiveData<NetworkResult<Boolean>> = MutableLiveData()
     val needsResponse: LiveData<NetworkResult<Boolean>> = _needsResponse

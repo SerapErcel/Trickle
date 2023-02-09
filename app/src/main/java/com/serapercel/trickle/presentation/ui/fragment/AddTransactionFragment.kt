@@ -82,7 +82,7 @@ class AddTransactionFragment @Inject constructor(
             } else if (date.isEmpty()) {
                 requireActivity().toastShort("Please pick date!")
             } else {
-                requireActivity().toastLong("$title $price $income $date")
+                requireActivity().toastLong("Saved: $title $price $date ")
                 if (income) {
                     val income = Income(account, title, price, date)
                     requestFirebaseData(income)
