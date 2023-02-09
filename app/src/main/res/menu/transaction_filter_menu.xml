@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/income"
+        android:icon="@drawable/ic_arrow_drop_up"
+        android:title="@string/income" />
+    <item
+        android:id="@+id/expense"
+        android:icon="@drawable/ic_arrow_drop_down"
+        android:title="@string/expense" />
+    <item
+        android:id="@+id/noFilter"
+        android:icon="@drawable/ic_clear"
+        android:title="@string/clear_filter" />
+</menu>

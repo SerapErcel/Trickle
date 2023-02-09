@@ -1,13 +1,16 @@
 package com.serapercel.trickle.presentation.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.serapercel.trickle.R
 import com.serapercel.trickle.common.adapter.LastTransactionAdapter
 import com.serapercel.trickle.data.entity.User
 import com.serapercel.trickle.databinding.FragmentLastTransactionsBinding
@@ -57,6 +60,43 @@ class LastTransactionsFragment @Inject constructor(
                         requireContext().toastShort("No Internet Connection!")
                     }
                 }
+        }
+
+
+        binding.btnLastTransactionFilter.setOnClickListener {
+            val popupMenu = PopupMenu(requireContext(), it)
+
+            popupMenu.setOnMenuItemClickListener { menuItem ->
+                return@setOnMenuItemClickListener when (menuItem.itemId) {
+                    R.id.income -> {
+                        transactionsAdapter.setData(transactionsViewModel.filterIncome())
+                        true
+                    }
+                    R.id.expense -> {
+                        transactionsAdapter.setData(transactionsViewModel.filterExpense())
+                        true
+                    }
+                    R.id.noFilter -> {
+                        transactionsAdapter.setData(transactionsViewModel.transactionResponse.value!!.data!!)
+                        true
+                    }
+                    else -> false
+                }
+            }
+
+            popupMenu.menuInflater.inflate(R.menu.transaction_filter_menu, popupMenu.menu)
+            try {
+                val fieldPopup = PopupMenu::class.java.getDeclaredField("mPopup")
+                fieldPopup.isAccessible = true
+                val mPopup = fieldPopup.get(popupMenu)
+                mPopup.javaClass.getDeclaredMethod("setForceShowIcon", Boolean::class.java)
+                    .invoke(mPopup, true)
+            } catch (e: Exception) {
+                Log.e("Main", "Error showing menu icons.")
+            } finally {
+                popupMenu.show()
+            }
+
         }
     }
 

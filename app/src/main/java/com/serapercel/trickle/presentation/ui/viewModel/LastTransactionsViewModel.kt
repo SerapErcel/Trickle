@@ -78,4 +78,12 @@ class LastTransactionsViewModel @Inject constructor(
             }
         }
     }
+
+    fun filterIncome(): List<ITransaction>{
+        return transactionResponse.value!!.data!!.filter { it.income }
+    }
+
+    fun filterExpense(): List<ITransaction>{
+        return transactionResponse.value!!.data!!.filter { !it.income }
+    }
 }

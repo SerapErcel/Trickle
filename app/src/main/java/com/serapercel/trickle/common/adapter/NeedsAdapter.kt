@@ -9,7 +9,7 @@ import com.serapercel.trickle.data.entity.Need
 import com.serapercel.trickle.data.entity.User
 import com.serapercel.trickle.databinding.NeedsCardBinding
 import com.serapercel.trickle.presentation.ui.viewModel.NeedsViewModel
-import com.serapercel.trickle.util.NeedsDiffUtil
+import com.serapercel.trickle.util.DataDiffUtil
 import com.serapercel.trickle.util.toastShort
 import javax.inject.Inject
 
@@ -59,8 +59,8 @@ class NeedsAdapter @Inject constructor(
     }
 
     fun setData(newData: List<Need>) {
-        val needsDiffUtil = NeedsDiffUtil(needs, newData)
-        val diffUtilResult = DiffUtil.calculateDiff(needsDiffUtil)
+        val diffUtil = DataDiffUtil(needs, newData)
+        val diffUtilResult = DiffUtil.calculateDiff(diffUtil)
         needs = newData
         diffUtilResult.dispatchUpdatesTo(this)
     }

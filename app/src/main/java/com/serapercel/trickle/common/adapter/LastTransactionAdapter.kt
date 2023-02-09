@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.serapercel.trickle.R
 import com.serapercel.trickle.data.entity.ITransaction
 import com.serapercel.trickle.databinding.LastTransactionCardBinding
-import com.serapercel.trickle.util.NeedsDiffUtil
+import com.serapercel.trickle.util.DataDiffUtil
 import javax.inject.Inject
 
 class LastTransactionAdapter @Inject constructor(
@@ -46,8 +46,8 @@ class LastTransactionAdapter @Inject constructor(
     override fun getItemCount(): Int = transactionList.size
 
     fun setData(newData: List<ITransaction>) {
-        val needsDiffUtil = NeedsDiffUtil(transactionList, newData)
-        val diffUtilResult = DiffUtil.calculateDiff(needsDiffUtil)
+        val transactionsDiffUtil = DataDiffUtil(transactionList, newData)
+        val diffUtilResult = DiffUtil.calculateDiff(transactionsDiffUtil)
         transactionList = newData
         diffUtilResult.dispatchUpdatesTo(this)
     }
