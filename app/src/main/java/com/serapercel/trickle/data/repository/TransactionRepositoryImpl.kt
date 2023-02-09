@@ -14,7 +14,7 @@ class TransactionRepositoryImpl @Inject constructor(
 
 ) : TransactionRepository {
 
-    override suspend fun getTransactions(user: User): Flow<List<ITransaction>> =
+    override suspend fun getTransactions(user: User): List<ITransaction> =
         remoteDataSource.getTransactions(user)
 
 

@@ -36,7 +36,7 @@ class MainFragment @Inject constructor(
         replaceFragment(
             requireActivity(),
             R.id.fragmentContainerTransactions,
-            LastTransactionsFragment()
+            LastTransactionsFragment(user)
         )
 
         binding.btnCalculate.setOnClickListener {
