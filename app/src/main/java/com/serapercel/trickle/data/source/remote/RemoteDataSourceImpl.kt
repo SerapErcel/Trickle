@@ -78,17 +78,30 @@ class RemoteDataSourceImpl @Inject constructor(
         TODO("Not yet implemented")
     }
 
-    override suspend fun addTransaction(transaction: ITransaction, user: User) {
-        TODO("Not yet implemented")
+    override suspend fun addTransaction(transaction: ITransaction, user: User): Boolean {
+        var result = true
+
+        val transactionId = dbRef.push().key!!
+        transaction.id = transactionId
+
+        dbRef.child(user.email!!.removePunctuation()).child("transactions").child(transactionId)
+            .setValue(transaction)
+            .addOnSuccessListener {
+                result = true
+            }.addOnFailureListener { exception ->
+                exception.localizedMessage?.let {
+                    result = false
+                }
+            }
+        return result
     }
 
-    override suspend fun deleteTransaction(transaction: ITransaction, user: User) {
+    override suspend fun deleteTransaction(transaction: ITransaction, user: User): Boolean {
         TODO("Not yet implemented")
     }
 
     override suspend fun deleteAllTransactions(user: User) {
         TODO("Not yet implemented")
     }
-
 
 }

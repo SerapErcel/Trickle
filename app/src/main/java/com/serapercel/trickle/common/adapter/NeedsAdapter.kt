@@ -54,7 +54,7 @@ class NeedsAdapter @Inject constructor(
             val newList = needs.filter { it != need }
             setData(newList)
         } else {
-            requireActivity.toastShort("Check the Ethernet Connection!")
+            requireActivity.toastShort("Check the Internet Connection!")
         }
     }
 

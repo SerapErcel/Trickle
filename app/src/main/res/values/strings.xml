@@ -13,7 +13,7 @@
     <string name="already_registered">Already Registered? Sign In</string>
     <string name="passwords_not_match">Passwords do not match!</string>
     <string name="empty_fields">Fill in the empty fields!</string>
-    <string name="sign_up_success">Registration Successful. Sign in.</string>
+    <string name="sign_up_success">Registration Successful.</string>
     <string name="enter_email">Enter your email!</string>
     <string name="send_reset_link">Password reset link has been sent to your email address.</string>
     <string name="new_account">New Account</string>
@@ -34,4 +34,10 @@
     <string name="name">Name</string>
     <string name="count">Count</string>
     <string name="add_need">Add Need</string>
+    <string name="pick_date">PICK DATE</string>
+    <string name="price">Price</string>
+    <string name="title">Title</string>
+    <string name="save_transaction">SAVE TRANSACTION</string>
+    <string name="expense">Expense</string>
+    <string name="income">Income</string>
 </resources>

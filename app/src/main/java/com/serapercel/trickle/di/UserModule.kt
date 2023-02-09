@@ -10,12 +10,10 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 class UserModule {
+
     @Provides
     @Singleton
     fun provideUser(): User {
         return User("", "")
     }
-
-
-
 }

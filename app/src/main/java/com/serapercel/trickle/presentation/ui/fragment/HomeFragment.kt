@@ -74,7 +74,7 @@ class HomeFragment : Fragment() {
             fabButtonClicked()
         }
         binding.btnAddTransaction.setOnClickListener {
-            replaceFragment(requireActivity(), R.id.mainContainer, TransactionFragment())
+            replaceFragment(requireActivity(), R.id.mainContainer, AddTransactionFragment(args.account))
             fabButtonClicked()
         }
         binding.bottomNavigationView.setOnItemSelectedListener {

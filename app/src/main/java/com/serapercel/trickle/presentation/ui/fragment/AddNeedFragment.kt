@@ -18,6 +18,7 @@ import javax.inject.Inject
 class AddNeedFragment @Inject constructor(
     var user: User
 ): Fragment() {
+
     private var _binding: FragmentAddNeedBinding? = null
     private val binding get() = _binding!!
 

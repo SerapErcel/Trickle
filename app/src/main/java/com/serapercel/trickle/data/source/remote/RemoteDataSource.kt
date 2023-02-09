@@ -9,16 +9,18 @@ interface RemoteDataSource {
 
     /** Needs **/
     suspend fun getNeeds(user: User): List<Need>
+
     suspend fun addNeed(need: Need, user: User): Boolean
+
     suspend fun deleteNeed(need: Need, user: User): Boolean
 
     /** Transactions **/
 
     suspend fun getTransactions(user: User): Flow<List<ITransaction>>
 
-    suspend fun addTransaction(transaction: ITransaction, user: User)
+    suspend fun addTransaction(transaction: ITransaction, user: User): Boolean
 
-    suspend fun deleteTransaction(transaction: ITransaction, user: User)
+    suspend fun deleteTransaction(transaction: ITransaction, user: User): Boolean
 
     suspend fun deleteAllTransactions(user: User)
 
