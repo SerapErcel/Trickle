@@ -35,7 +35,7 @@ class RemoteDataSourceImpl @Inject constructor(
                 TODO("Not yet implemented")
             }
         })
-        delay(1000L)
+        delay(2000L)
         return needList
     }
 
@@ -73,7 +73,32 @@ class RemoteDataSourceImpl @Inject constructor(
 
     val transactionList = arrayListOf<ITransaction>()
 
-    override suspend fun getTransactions(user: User): List<ITransaction> {
+    override suspend fun getTransactions(account: Account): List<ITransaction> {
+
+        dbRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                transactionList.clear()
+                if (snapshot.exists()) {
+                    for (empSnap in snapshot.child(account.user.email!!.removePunctuation())
+                        .child("transactions").children) {
+                        if (empSnap.child("account").child("name").value == account.name) {
+                            transactionList.add(empSnap.getValue(ITransaction::class.java)!!)
+                        }
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
+        delay(2000L)
+        return transactionList
+    }
+
+    override suspend fun getAllTransactions(user: User): List<ITransaction> {
+
 
         dbRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -91,7 +116,7 @@ class RemoteDataSourceImpl @Inject constructor(
             }
 
         })
-        delay(1000L)
+        delay(2000L)
         return transactionList
     }
 

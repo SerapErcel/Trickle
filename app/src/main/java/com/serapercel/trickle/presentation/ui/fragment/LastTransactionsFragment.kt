@@ -12,7 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.serapercel.trickle.R
 import com.serapercel.trickle.common.adapter.LastTransactionAdapter
-import com.serapercel.trickle.data.entity.User
+import com.serapercel.trickle.data.entity.Account
 import com.serapercel.trickle.databinding.FragmentLastTransactionsBinding
 import com.serapercel.trickle.presentation.ui.viewModel.LastTransactionsViewModel
 import com.serapercel.trickle.util.NetworkListener
@@ -23,7 +23,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class LastTransactionsFragment @Inject constructor(
-    var user: User
+    var account: Account
 ) : Fragment() {
 
     private var _binding: FragmentLastTransactionsBinding? = null
@@ -44,7 +44,7 @@ class LastTransactionsFragment @Inject constructor(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        transactionsViewModel = ViewModelProvider(this).get(LastTransactionsViewModel::class.java)
+        transactionsViewModel = ViewModelProvider(this)[LastTransactionsViewModel::class.java]
 
         setupRecyclerView()
 
@@ -101,7 +101,7 @@ class LastTransactionsFragment @Inject constructor(
     }
 
     private fun requestFirebaseData() {
-        transactionsViewModel.getTransactions(user)
+        transactionsViewModel.getTransactions(account)
         transactionsViewModel.transactionResponse.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is NetworkResult.Success -> {
