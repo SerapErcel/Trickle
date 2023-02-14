@@ -30,7 +30,7 @@ class LastTransactionsFragment @Inject constructor(
     private val binding get() = _binding!!
 
     private lateinit var transactionsViewModel: LastTransactionsViewModel
-    private val transactionsAdapter by lazy { LastTransactionAdapter() }
+    private val transactionsAdapter by lazy { LastTransactionAdapter(requireContext()) }
 
     private lateinit var networkListener: NetworkListener
 

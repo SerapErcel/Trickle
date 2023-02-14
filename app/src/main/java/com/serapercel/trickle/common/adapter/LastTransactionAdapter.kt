@@ -1,5 +1,6 @@
 package com.serapercel.trickle.common.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -11,9 +12,10 @@ import com.serapercel.trickle.util.DataDiffUtil
 import javax.inject.Inject
 
 class LastTransactionAdapter @Inject constructor(
+    var context: Context
 ) : RecyclerView.Adapter<LastTransactionAdapter.LastTransactionCardHolder>() {
 
-    private var transactionList = emptyList<ITransaction>()
+    var transactionList = emptyList<ITransaction>()
 
 
     class LastTransactionCardHolder(val binding: LastTransactionCardBinding) :
@@ -32,15 +34,16 @@ class LastTransactionAdapter @Inject constructor(
 
     override fun onBindViewHolder(holder: LastTransactionCardHolder, position: Int) {
         val lastTransactionItem = transactionList[position]
+
         holder.binding.tvLastTransactionName.text = lastTransactionItem.title
         holder.binding.tvLastTransactionAmount.text = lastTransactionItem.price
         holder.binding.tvLastTransactionAccount.text = lastTransactionItem.account.name
+
         if (lastTransactionItem.income) {
             holder.binding.ivLastTransactionIcon.setImageResource(R.drawable.ic_arrow_drop_up)
         } else {
             holder.binding.ivLastTransactionIcon.setImageResource(R.drawable.ic_arrow_drop_down)
         }
-
     }
 
     override fun getItemCount(): Int = transactionList.size

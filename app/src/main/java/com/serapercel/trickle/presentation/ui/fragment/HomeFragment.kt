@@ -54,7 +54,7 @@ class HomeFragment : Fragment() {
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+        viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
 
         return binding.root
     }
@@ -97,7 +97,7 @@ class HomeFragment : Fragment() {
                 R.id.analyticsFragment -> replaceFragment(
                     requireActivity(),
                     R.id.mainContainer,
-                    AnalyticsFragment()
+                    TransactionFragment(account)
                 )
                 else -> {
                 }
@@ -159,5 +159,4 @@ class HomeFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
 }
