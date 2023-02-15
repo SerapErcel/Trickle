@@ -1,6 +1,7 @@
 package com.serapercel.trickle.presentation.ui.viewModel
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -45,6 +46,7 @@ class TransactionsViewModel @Inject constructor(
             try {
                 val response = repository.getAllTransactions(account.user)
                 _transactionResponse.value = handleResponse(response = response)
+                Log.e("hata", "transactions view model: ${transactionResponse.value!!.data!!.size}")
 
             } catch (e: Exception) {
                 _transactionResponse.value = NetworkResult.Error(message = e.message)

@@ -30,7 +30,7 @@ class MainFragment @Inject constructor(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        replaceFragment(requireActivity(), R.id.fragmentContainerOverview, MainOverviewFragment())
+        replaceFragment(requireActivity(), R.id.fragmentContainerOverview, MainOverviewFragment(account))
         replaceFragment(
             requireActivity(),
             R.id.fragmentContainerNeeds,
