@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.serapercel.trickle.data.entity.Need
 import com.serapercel.trickle.data.entity.User
 import com.serapercel.trickle.databinding.NeedsOverviewCardBinding
-import com.serapercel.trickle.util.NeedsDiffUtil
+import com.serapercel.trickle.util.DataDiffUtil
 import javax.inject.Inject
 
 class NeedsOverviewAdapter @Inject constructor(
@@ -19,16 +19,16 @@ class NeedsOverviewAdapter @Inject constructor(
     class NeedsOverviewCardHolder(val binding: NeedsOverviewCardBinding) :
         RecyclerView.ViewHolder(binding.root) {
         companion object {
-            fun from(parent: ViewGroup): NeedsOverviewAdapter.NeedsOverviewCardHolder {
+            fun from(parent: ViewGroup): NeedsOverviewCardHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = NeedsOverviewCardBinding.inflate(layoutInflater, parent, false)
-                return NeedsOverviewAdapter.NeedsOverviewCardHolder(binding)
+                return NeedsOverviewCardHolder(binding)
             }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NeedsOverviewCardHolder =
-        NeedsOverviewAdapter.NeedsOverviewCardHolder.from(parent)
+        NeedsOverviewCardHolder.from(parent)
 
 
     override fun onBindViewHolder(holder: NeedsOverviewCardHolder, position: Int) {
@@ -39,8 +39,8 @@ class NeedsOverviewAdapter @Inject constructor(
     override fun getItemCount(): Int = needs.size
 
     fun setData(newData: List<Need>) {
-        val needsDiffUtil = NeedsDiffUtil(needs, newData)
-        val diffUtilResult = DiffUtil.calculateDiff(needsDiffUtil)
+        val diffUtil = DataDiffUtil(needs, newData)
+        val diffUtilResult = DiffUtil.calculateDiff(diffUtil)
         needs = newData
         diffUtilResult.dispatchUpdatesTo(this)
     }

@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.serapercel.trickle.R
-import com.serapercel.trickle.data.entity.User
+import com.serapercel.trickle.data.entity.Account
 import com.serapercel.trickle.databinding.FragmentMainBinding
 import com.serapercel.trickle.util.replaceFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainFragment @Inject constructor(
-    var user: User
+    var account: Account
 ) : Fragment() {
 
     private var _binding: FragmentMainBinding? = null
@@ -31,12 +31,16 @@ class MainFragment @Inject constructor(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         replaceFragment(requireActivity(), R.id.fragmentContainerOverview, MainOverviewFragment())
-        replaceFragment(requireActivity(), R.id.fragmentContainerNeeds, NeedsOverviewFragment(user))
+        replaceFragment(
+            requireActivity(),
+            R.id.fragmentContainerNeeds,
+            NeedsOverviewFragment(account.user)
+        )
         replaceFragment(requireActivity(), R.id.fragmentContainerCurrency, CurrencyFragment())
         replaceFragment(
             requireActivity(),
             R.id.fragmentContainerTransactions,
-            LastTransactionsFragment()
+            LastTransactionsFragment(account)
         )
 
         binding.btnCalculate.setOnClickListener {

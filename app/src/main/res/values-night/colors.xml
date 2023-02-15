@@ -19,8 +19,9 @@
     <color name="backgroundColor">#122226</color>
     <color name="primaryColorTransparent">#07006978</color>
     <color name="greyColor">#aebfbe</color>
-    <color name="textColor">#e0f2f1</color>
+    <color name="textColor">#f0f2f1</color>
     <color name="darkTextColor">#e0f2f1</color>
     <color name="orange">#FD6140</color>
-
+    <color name="titleBackgroundColor1">#81c784</color>
+    <color name="titleBackgroundColor2">#519657</color>
 </resources>

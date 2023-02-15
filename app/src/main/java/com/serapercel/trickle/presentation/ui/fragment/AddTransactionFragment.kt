@@ -45,7 +45,7 @@ class AddTransactionFragment @Inject constructor(
         super.onViewCreated(view, savedInstanceState)
 
         addTransactionViewModel =
-            ViewModelProvider(requireActivity()).get(AddTransactionViewModel::class.java)
+            ViewModelProvider(requireActivity())[AddTransactionViewModel::class.java]
 
         binding.btnPickDate.setOnClickListener {
             val getDate = Calendar.getInstance()
@@ -97,7 +97,7 @@ class AddTransactionFragment @Inject constructor(
     }
 
     private fun requestFirebaseData(transaction: ITransaction) {
-        addTransactionViewModel.addTransaction(transaction, account.user!!)
+        addTransactionViewModel.addTransaction(transaction, account.user)
         addTransactionViewModel.transactionResponse.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is NetworkResult.Success -> {

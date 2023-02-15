@@ -4,12 +4,9 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.serapercel.trickle.data.entity.ITransaction
-import com.serapercel.trickle.data.entity.Need
-import com.serapercel.trickle.data.entity.User
+import com.serapercel.trickle.data.entity.*
 import com.serapercel.trickle.util.removePunctuation
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class RemoteDataSourceImpl @Inject constructor(
@@ -38,7 +35,7 @@ class RemoteDataSourceImpl @Inject constructor(
                 TODO("Not yet implemented")
             }
         })
-        delay(1000L)
+        delay(2000L)
         return needList
     }
 
@@ -74,8 +71,53 @@ class RemoteDataSourceImpl @Inject constructor(
 
     /** Transactions **/
 
-    override suspend fun getTransactions(user: User): Flow<List<ITransaction>> {
-        TODO("Not yet implemented")
+    val transactionList = arrayListOf<ITransaction>()
+
+    override suspend fun getTransactions(account: Account): List<ITransaction> {
+
+        dbRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                transactionList.clear()
+                if (snapshot.exists()) {
+                    for (empSnap in snapshot.child(account.user.email!!.removePunctuation())
+                        .child("transactions").children) {
+                        if (empSnap.child("account").child("name").value == account.name) {
+                            transactionList.add(empSnap.getValue(ITransaction::class.java)!!)
+                        }
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
+        delay(2000L)
+        return transactionList
+    }
+
+    override suspend fun getAllTransactions(user: User): List<ITransaction> {
+
+
+        dbRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                transactionList.clear()
+                if (snapshot.exists()) {
+                    for (empSnap in snapshot.child(user.email!!.removePunctuation())
+                        .child("transactions").children) {
+                        transactionList.add(empSnap.getValue(ITransaction::class.java)!!)
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
+        delay(2000L)
+        return transactionList
     }
 
     override suspend fun addTransaction(transaction: ITransaction, user: User): Boolean {

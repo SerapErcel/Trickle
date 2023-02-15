@@ -1,9 +1,9 @@
 package com.serapercel.trickle.data.source.remote
 
+import com.serapercel.trickle.data.entity.Account
 import com.serapercel.trickle.data.entity.ITransaction
 import com.serapercel.trickle.data.entity.Need
 import com.serapercel.trickle.data.entity.User
-import kotlinx.coroutines.flow.Flow
 
 interface RemoteDataSource {
 
@@ -16,7 +16,9 @@ interface RemoteDataSource {
 
     /** Transactions **/
 
-    suspend fun getTransactions(user: User): Flow<List<ITransaction>>
+    suspend fun getTransactions(account: Account): List<ITransaction>
+
+    suspend fun getAllTransactions(user: User): List<ITransaction>
 
     suspend fun addTransaction(transaction: ITransaction, user: User): Boolean
 

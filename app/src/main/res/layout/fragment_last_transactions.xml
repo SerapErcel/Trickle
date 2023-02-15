@@ -43,5 +43,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvLastTansactionsTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/tvLastTansactionsTitle"
+        tools:listitem="@layout/last_transaction_card" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,6 @@
 package com.serapercel.trickle.data.repository
 
+import com.serapercel.trickle.data.entity.Account
 import com.serapercel.trickle.data.entity.ITransaction
 import com.serapercel.trickle.data.entity.User
 import com.serapercel.trickle.data.source.local.LocalDataSource
@@ -14,9 +15,11 @@ class TransactionRepositoryImpl @Inject constructor(
 
 ) : TransactionRepository {
 
-    override suspend fun getTransactions(user: User): Flow<List<ITransaction>> =
-        remoteDataSource.getTransactions(user)
+    override suspend fun getTransactions(account: Account): List<ITransaction> =
+        remoteDataSource.getTransactions(account)
 
+    override suspend fun getAllTransactions(user: User): List<ITransaction> =
+        remoteDataSource.getAllTransactions(user)
 
     override suspend fun addTransaction(transaction: ITransaction, user: User) =
         remoteDataSource.addTransaction(transaction, user)
