@@ -23,7 +23,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.github.mikephil.charting.charts.PieChart
+    <com.anychart.AnyChartView
         android:id="@+id/pieChartMainOverview"
         android:layout_width="0dp"
         android:layout_height="100dp"
