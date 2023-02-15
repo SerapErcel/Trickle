@@ -7,13 +7,13 @@
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cvTransaction"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginBottom="6dp"
         android:layout_marginHorizontal="16dp"
         android:backgroundTint="@color/backgroundColor"
-        app:cardElevation="5dp"
+        app:cardElevation="4dp"
         app:cardCornerRadius="8dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -25,7 +25,7 @@
                 android:id="@+id/ivLastTransactionIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginHorizontal="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/tvLastTransactionAmount"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -38,11 +38,13 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tvLastTransactionAmount"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:paddingVertical="4dp"
                 android:textColor="@color/darkTextColor"
                 android:textSize="18sp"
+                android:maxLines="3"
+                android:textAlignment="center"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/tvLastTransactionName"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -53,11 +55,13 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tvLastTransactionName"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:paddingVertical="4dp"
                 android:textColor="@color/darkTextColor"
                 android:textSize="18sp"
+                android:maxLines="3"
+                android:textAlignment="center"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/tvLastTransactionAccount"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -68,12 +72,14 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tvLastTransactionAccount"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="8dp"
                 android:paddingVertical="4dp"
                 android:textColor="@color/darkTextColor"
                 android:textSize="18sp"
+                android:maxLines="3"
+                android:textAlignment="center"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"

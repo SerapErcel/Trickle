@@ -7,7 +7,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 @IgnoreExtraProperties
 data class Account(
-    val name: String?,
-    val user: User?
+    val name: String = "",
+    val user: User = User("", "")
 ) :
     Parcelable

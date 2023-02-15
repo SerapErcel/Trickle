@@ -54,7 +54,7 @@ class HomeFragment : Fragment() {
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+        viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
 
         return binding.root
     }
@@ -63,18 +63,18 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val bundle = arguments
         val args = HomeFragmentArgs.fromBundle(bundle!!)
-        val user = args.account.user
+        val account = args.account
 
-        replaceFragment(requireActivity(), R.id.mainContainer, MainFragment(user!!))
+        replaceFragment(requireActivity(), R.id.mainContainer, MainFragment(account))
         binding.fab.setOnClickListener {
             fabButtonClicked()
         }
         binding.btnAddNeed.setOnClickListener {
-            replaceFragment(requireActivity(), R.id.mainContainer, AddNeedFragment(user))
+            replaceFragment(requireActivity(), R.id.mainContainer, AddNeedFragment(account.user))
             fabButtonClicked()
         }
         binding.btnAddTransaction.setOnClickListener {
-            replaceFragment(requireActivity(), R.id.mainContainer, TransactionFragment())
+            replaceFragment(requireActivity(), R.id.mainContainer, AddTransactionFragment(account))
             fabButtonClicked()
         }
         binding.bottomNavigationView.setOnItemSelectedListener {
@@ -82,12 +82,12 @@ class HomeFragment : Fragment() {
                 R.id.mainFragment -> replaceFragment(
                     requireActivity(),
                     R.id.mainContainer,
-                    MainFragment(user)
+                    MainFragment(account)
                 )
                 R.id.needsFragment -> replaceFragment(
                     requireActivity(),
                     R.id.mainContainer,
-                    NeedsFragment(user)
+                    NeedsFragment(account.user)
                 )
                 R.id.profileFragment -> replaceFragment(
                     requireActivity(),
@@ -97,7 +97,7 @@ class HomeFragment : Fragment() {
                 R.id.analyticsFragment -> replaceFragment(
                     requireActivity(),
                     R.id.mainContainer,
-                    AnalyticsFragment()
+                    TransactionFragment(account)
                 )
                 else -> {
                 }
@@ -159,5 +159,4 @@ class HomeFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
 }

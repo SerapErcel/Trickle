@@ -2,7 +2,7 @@ package com.serapercel.trickle.util
 
 import androidx.recyclerview.widget.DiffUtil
 
-class NeedsDiffUtil <T>(
+class DataDiffUtil <T>(
     private val oldList: List<T>,
     private val newList: List<T>
 ) : DiffUtil.Callback() {

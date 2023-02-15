@@ -2,36 +2,36 @@ package com.serapercel.trickle.data.repository
 
 import com.serapercel.trickle.data.entity.Need
 import com.serapercel.trickle.data.entity.User
-import com.serapercel.trickle.data.source.local.LocalNeedsDataSource
-import com.serapercel.trickle.data.source.remote.RemoteNeedDataSource
+import com.serapercel.trickle.data.source.local.LocalDataSource
+import com.serapercel.trickle.data.source.remote.RemoteDataSource
 import com.serapercel.trickle.domain.repository.NeedsRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class NeedsRepositoryImpl @Inject constructor(
-    private val remoteNeedDataSource: RemoteNeedDataSource,
-    private val localNeedsDataSource: LocalNeedsDataSource
+    private val remoteDataSource: RemoteDataSource,
+    private val localDataSource: LocalDataSource
 ) : NeedsRepository {
-    override suspend fun getNeeds(user: User): List<Need> = remoteNeedDataSource.getNeeds(user)
+    override suspend fun getNeeds(user: User): List<Need> = remoteDataSource.getNeeds(user)
 
     override suspend fun addNeed(need: Need, user: User): Boolean =
-        remoteNeedDataSource.addNeed(need, user)
+        remoteDataSource.addNeed(need, user)
 
     override suspend fun deleteNeed(need: Need, user: User): Boolean =
-        remoteNeedDataSource.deleteNeed(need, user)
+        remoteDataSource.deleteNeed(need, user)
 
-    override fun readDatabase(): Flow<List<Need>> = localNeedsDataSource.readDatabase()
+    override fun readDatabase(): Flow<List<Need>> = localDataSource.readDatabase()
 
-    override suspend fun insertNeeds(need: Need) = localNeedsDataSource.insertNeeds(need)
+    override suspend fun insertNeeds(need: Need) = localDataSource.insertNeeds(need)
 
     override suspend fun insertAllNeeds(needList: List<Need>) =
-        localNeedsDataSource.insertAllNeeds(needList)
+        localDataSource.insertAllNeeds(needList)
 
-    override suspend fun deleteNeed(need: Need) = localNeedsDataSource.deleteNeed(need)
+    override suspend fun deleteNeed(need: Need) = localDataSource.deleteNeed(need)
 
-    override suspend fun deleteAllNeed() = localNeedsDataSource.deleteAllNeed()
+    override suspend fun deleteAllNeed() = localDataSource.deleteAllNeed()
 
-    override suspend fun updateNeed(id: Int?, name: String?, count: String?) {
-        localNeedsDataSource.updateNeed(id, name, count)
-    }
+    override suspend fun updateNeed(id: Int?, name: String?, count: String?) =
+        localDataSource.updateNeed(id, name, count)
+
 }

@@ -1,6 +1,8 @@
 package com.serapercel.trickle.util
 
 import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -9,6 +11,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.serapercel.trickle.data.entity.Account
 import com.serapercel.trickle.data.entity.User
+import dagger.hilt.android.internal.Contexts
 
 // Sending a short toast message
 fun Context.toastShort(message: String) {
@@ -46,4 +49,31 @@ fun <T> LiveData<T>.observeOnce(lifecycleOwner: LifecycleOwner, observer: Observ
             observer.onChanged(t)
         }
     })
+}
+
+// Check Internet Connection
+fun hasInternetConnection(context: Context): Boolean {
+    val connectivityManager = Contexts.getApplication(context).getSystemService(
+        Context.CONNECTIVITY_SERVICE
+    ) as ConnectivityManager
+    val activeNetwork = connectivityManager.activeNetwork ?: return false
+    val capabilities = connectivityManager.getNetworkCapabilities(activeNetwork) ?: return false
+    return when {
+        capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+        capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+        capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
+        else -> false
+    }
+}
+
+// Response Handle
+fun handleNeedsResponse(response: Boolean): NetworkResult<Boolean> {
+    return when {
+        response -> {
+            NetworkResult.Success(data = response)
+        }
+        else -> {
+            NetworkResult.Error("Add Needs Firebase Error!")
+        }
+    }
 }

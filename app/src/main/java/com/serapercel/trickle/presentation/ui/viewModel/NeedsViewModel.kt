@@ -151,7 +151,7 @@ class NeedsViewModel @Inject constructor(
 
     fun showNetworkStatus() {
         if (!networkStatus) {
-            context.toastShort("No Internet Connetciton")
+            context.toastShort("No Internet Connection")
             saveBackOnline(true)
         } else if (networkStatus) {
             if (backOnline) {
