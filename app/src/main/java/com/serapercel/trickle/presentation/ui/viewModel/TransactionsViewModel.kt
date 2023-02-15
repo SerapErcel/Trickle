@@ -55,6 +55,45 @@ class TransactionsViewModel @Inject constructor(
         }
     }
 
+    private val _transactionDeleteResponse: MutableLiveData<NetworkResult<Boolean>> =
+        MutableLiveData()
+    val transactionDeleteResponse: LiveData<NetworkResult<Boolean>> = _transactionDeleteResponse
+
+    fun deleteTransaction(transaction: ITransaction, account: Account) = viewModelScope.launch {
+        deleteTransactionSafeCall(transaction, account)
+    }
+
+    private suspend fun deleteTransactionSafeCall(transaction: ITransaction, account: Account) {
+        _transactionDeleteResponse.value = NetworkResult.Loading()
+        if (hasInternetConnection(context)) {
+            try {
+                val response = repository.deleteTransaction(transaction, account.user)
+                _transactionDeleteResponse.value = handleDeleteResponse(response = response)
+
+                if (response) {
+                    getAllTransactions(account)
+                }
+
+            } catch (e: Exception) {
+                _transactionResponse.value = NetworkResult.Error(message = e.message)
+
+            }
+        } else {
+            _transactionResponse.value = NetworkResult.Error(message = "No Internet Connection.")
+        }
+    }
+
+    private fun handleDeleteResponse(response: Boolean): NetworkResult<Boolean> {
+        return when {
+            response -> {
+                NetworkResult.Success(data = response)
+            }
+            else -> {
+                NetworkResult.Error("Delete Transactions Firebase Error!")
+            }
+        }
+    }
+
     private fun handleResponse(response: List<ITransaction>): NetworkResult<List<ITransaction>> {
         return when {
             response.isNotEmpty() -> {

@@ -139,7 +139,16 @@ class RemoteDataSourceImpl @Inject constructor(
     }
 
     override suspend fun deleteTransaction(transaction: ITransaction, user: User): Boolean {
-        TODO("Not yet implemented")
+        var result = true
+        dbRef.child(user.email!!.removePunctuation()).child("transactions").child(transaction.id).removeValue()
+            .addOnSuccessListener {
+                result = true
+            }.addOnFailureListener { exception ->
+                exception.localizedMessage?.let {
+                    result = false
+                }
+            }
+        return result
     }
 
     override suspend fun deleteAllTransactions(user: User) {

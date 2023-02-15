@@ -9,7 +9,7 @@ import android.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.serapercel.trickle.common.adapter.LastTransactionAdapter
+import com.serapercel.trickle.common.adapter.TransactionAdapter
 import com.serapercel.trickle.data.entity.Account
 import com.serapercel.trickle.data.entity.ITransaction
 import com.serapercel.trickle.databinding.FragmentTransactionBinding
@@ -31,7 +31,13 @@ class TransactionFragment @Inject constructor(
     private val binding get() = _binding!!
 
     private lateinit var transactionsViewModel: TransactionsViewModel
-    private val transactionsAdapter by lazy { LastTransactionAdapter(requireContext()) }
+    private val transactionsAdapter by lazy {
+        TransactionAdapter(
+            requireContext(),
+            transactionsViewModel,
+            account
+        )
+    }
 
     private lateinit var networkListener: NetworkListener
     override fun onCreateView(
