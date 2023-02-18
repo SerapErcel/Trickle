@@ -1,7 +1,6 @@
 package com.serapercel.trickle.common.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
@@ -20,26 +19,25 @@ class TransactionAdapter @Inject constructor(
     var context: Context,
     var viewModel: TransactionsViewModel,
     var account: Account
-) : RecyclerView.Adapter<TransactionAdapter.LastTransactionCardHolder>() {
+) : RecyclerView.Adapter<TransactionAdapter.TransactionCardHolder>() {
 
-    var transactionList = emptyList<ITransaction>()
+    private var transactionList = emptyList<ITransaction>()
 
-
-    class LastTransactionCardHolder(val binding: LastTransactionCardBinding) :
+    class TransactionCardHolder(val binding: LastTransactionCardBinding) :
         RecyclerView.ViewHolder(binding.root) {
         companion object {
-            fun from(parent: ViewGroup): LastTransactionCardHolder {
+            fun from(parent: ViewGroup): TransactionCardHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = LastTransactionCardBinding.inflate(layoutInflater, parent, false)
-                return LastTransactionCardHolder(binding)
+                return TransactionCardHolder(binding)
             }
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LastTransactionCardHolder =
-        LastTransactionCardHolder.from(parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TransactionCardHolder =
+        TransactionCardHolder.from(parent)
 
-    override fun onBindViewHolder(holder: LastTransactionCardHolder, position: Int) {
+    override fun onBindViewHolder(holder: TransactionCardHolder, position: Int) {
         val lastTransactionItem = transactionList[position]
 
         holder.binding.tvLastTransactionName.text = lastTransactionItem.title
@@ -47,22 +45,7 @@ class TransactionAdapter @Inject constructor(
         holder.binding.tvLastTransactionAccount.text = lastTransactionItem.account.name
 
         holder.binding.cvTransaction.setOnLongClickListener {
-            val builder = AlertDialog.Builder(context)
-            builder.setTitle("Delete")
-            builder.setMessage("Do you want to delete this transaction?\n\n Title: ${lastTransactionItem.title}\n Price: ${lastTransactionItem.price}\n Account: ${lastTransactionItem.account.name}")
-            builder.setPositiveButton("Yes") { dialogInterface, which ->
-                viewModel.deleteTransaction(lastTransactionItem, account)
-                context.toastShort("Transaction deleted!")
-
-            }
-            builder.setNeutralButton("Cancel") { dialogInterface, which ->
-                context.toastShort("clicked cancel\n operation cancel")
-            }
-            builder.setNegativeButton("No") { dialogInterface, which ->
-                context.toastShort("clicked No")
-            }
-            builder.show()
-            true
+            deleteTransaction(lastTransactionItem)
         }
 
         if (lastTransactionItem.income) {
@@ -80,12 +63,33 @@ class TransactionAdapter @Inject constructor(
             val diffUtilResult = DiffUtil.calculateDiff(transactionsDiffUtil)
             transactionList = newData
             diffUtilResult.dispatchUpdatesTo(this)
-            Log.e("hata", "not empty")
         } else {
             context.toastShort("Not Found")
-            Log.e("hata", " empty")
-
         }
     }
 
+    private fun deleteTransaction(transaction: ITransaction): Boolean {
+        val builder = AlertDialog.Builder(context)
+        builder.setTitle("Delete")
+        builder.setMessage("Do you want to delete this transaction?\n\n Title: ${transaction.title}\n Price: ${transaction.price}\n Account: ${transaction.account.name}")
+        builder.setPositiveButton("Yes") { dialogInterface, which ->
+            viewModel.deleteTransaction(transaction, account)
+            if (viewModel.transactionResponse.value?.data.isNullOrEmpty()) {
+                context.toastShort("Check the Internet Connection!")
+            } else {
+                val newList =
+                    viewModel.transactionResponse.value!!.data!!.filter { it != transaction }
+                setData(newList)
+                context.toastShort("Transaction deleted!")
+            }
+        }
+        builder.setNeutralButton("Cancel") { dialogInterface, which ->
+            context.toastShort("clicked cancel\n operation cancel")
+        }
+        builder.setNegativeButton("No") { dialogInterface, which ->
+            context.toastShort("clicked No")
+        }
+        builder.show()
+        return true
+    }
 }

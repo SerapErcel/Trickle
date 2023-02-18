@@ -1,7 +1,6 @@
 package com.serapercel.trickle.presentation.ui.viewModel
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -46,8 +45,6 @@ class TransactionsViewModel @Inject constructor(
             try {
                 val response = repository.getAllTransactions(account.user)
                 _transactionResponse.value = handleResponse(response = response)
-                Log.e("hata", "transactions view model: ${transactionResponse.value!!.data!!.size}")
-
             } catch (e: Exception) {
                 _transactionResponse.value = NetworkResult.Error(message = e.message)
 
@@ -59,11 +56,11 @@ class TransactionsViewModel @Inject constructor(
 
     private val _transactionDeleteResponse: MutableLiveData<NetworkResult<Boolean>> =
         MutableLiveData()
-    val transactionDeleteResponse: LiveData<NetworkResult<Boolean>> = _transactionDeleteResponse
 
     fun deleteTransaction(transaction: ITransaction, account: Account) = viewModelScope.launch {
         deleteTransactionSafeCall(transaction, account)
     }
+
 
     private suspend fun deleteTransactionSafeCall(transaction: ITransaction, account: Account) {
         _transactionDeleteResponse.value = NetworkResult.Loading()
@@ -71,10 +68,6 @@ class TransactionsViewModel @Inject constructor(
             try {
                 val response = repository.deleteTransaction(transaction, account.user)
                 _transactionDeleteResponse.value = handleDeleteResponse(response = response)
-
-                if (response) {
-                    getAllTransactions(account)
-                }
 
             } catch (e: Exception) {
                 _transactionResponse.value = NetworkResult.Error(message = e.message)
