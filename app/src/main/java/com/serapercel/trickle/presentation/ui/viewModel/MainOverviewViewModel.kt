@@ -1,7 +1,6 @@
 package com.serapercel.trickle.presentation.ui.viewModel
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.serapercel.trickle.data.entity.Account
@@ -21,19 +20,16 @@ class MainOverviewViewModel @Inject constructor(
     lateinit var accountsViewModel: AccountViewModel
 
     lateinit var transactionData: List<ITransaction>
-    lateinit var _accountData : List<String>
+    private lateinit var _accountData: List<String>
     var priceData = ArrayList<Float>()
     var accounts = ArrayList<String>()
 
     fun getAllTransactions(account: Account) = viewModelScope.launch {
-        Log.e("hata", "get all transactions")
         getData(account)
     }
 
     private suspend fun getData(account: Account) {
         try {
-            Log.e("hata", "get data try")
-
             transactionsViewModel.getAllTransactions(account)
             delay(2000)
 
@@ -42,41 +38,32 @@ class MainOverviewViewModel @Inject constructor(
 
             val transactionDataTemp = transactionsViewModel.transactionResponse.value!!.data
 
-            Log.e("hata", "get data try transaction complete ${transactionDataTemp!!.size}")
-
             var accountDataTemp = accountsViewModel.accounts.value
 
-            Log.e("hata", "get data try account complete")
-
             if (!transactionDataTemp.isNullOrEmpty() && !accountDataTemp.isNullOrEmpty()) {
-                Log.e("hata", "get data if null check")
                 accountDataTemp = accountDataTemp.filter { it != "needs" && it != "transactions" }
-                _accountData= accountDataTemp
+                _accountData = accountDataTemp
                 accounts.addAll(_accountData)
                 transactionData = transactionDataTemp
                 calucate()
             }
 
         } catch (e: Exception) {
-            Log.e("hata", "get data catch")
             context.toastShort("Error while pulling data!")
         }
     }
 
     private fun calucate() {
+        var total = 0f
         for (a in accounts) {
 
-            Log.e("hata", "getAllTransactions account check")
-
-            var total = 0f
-            val list = transactionData.filter { it.account.name == a }
-            for (i in list) {
-                total += i.price.toFloat()
-                Log.e("hata", "account: $a total: $total")
-
+            for (t in transactionData) {
+                if (t.account.name == a) {
+                    total += t.price.toFloat()
+                }
             }
             priceData.add(total)
+            total = 0f
         }
-        Log.e("hata", "transaction data: ${transactionData.size} prices: $priceData accounts: $accounts")
     }
 }

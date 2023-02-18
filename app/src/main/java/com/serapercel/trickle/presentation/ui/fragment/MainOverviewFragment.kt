@@ -1,7 +1,6 @@
 package com.serapercel.trickle.presentation.ui.fragment
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -30,8 +29,6 @@ class MainOverviewFragment @Inject constructor(
     private val binding get() = _binding!!
 
     private var chart: AnyChartView? = null
-    var accountData= ArrayList<String>()
-    var priceData = ArrayList<Float>()
     var accountDataTemp= ArrayList<String>()
     var priceDataTemp = ArrayList<Float>()
 
@@ -61,52 +58,19 @@ class MainOverviewFragment @Inject constructor(
             priceDataTemp = mainOverviewViewModel.priceData
             accountDataTemp = mainOverviewViewModel.accounts
             delay(2000)
-            Log.e("hata", "price data temp: ${priceDataTemp.size} accountDataTemp: ${accountDataTemp.size}")
-            prepareData()
-            delay(2000)
             chart = binding.pieChartMainOverview
             configChartView()
         }
-
 
         return binding.root
 
     }
 
-    private fun prepareData(){
-
-        for (i in priceDataTemp){
-            priceData.add(i)
-        }
-
-        for (i in accountDataTemp){
-            accountData.add(i)
-        }
-
-    }
     private fun configChartView() {
         val pie: Pie = AnyChart.pie()
         val dataPieChart: MutableList<DataEntry> = mutableListOf()
-/*
-        priceData = mainOverviewViewModel.priceData
-        accountData = mainOverviewViewModel.accounts
 
-
-        for (i in mainOverviewViewModel.accounts){
-            accountData.add(i)
-        }
-        for (i in mainOverviewViewModel.priceData){
-            priceData.add(i)
-        }
-        priceData.add(15.5f)
-        priceData.add(25f)
-        priceData.add(45f)
-
-        accountData.add("bir")
-        accountData.add("iki")
-        accountData.add("uc")
-*/
-        for (index in accountData.indices) {
+        for (index in accountDataTemp.indices) {
             dataPieChart.add(
                 ValueDataEntry(
                     accountDataTemp.elementAt(index),
@@ -115,7 +79,6 @@ class MainOverviewFragment @Inject constructor(
             )
         }
         pie.data(dataPieChart)
-        pie.title("deneme")
         chart!!.setChart(pie)
     }
 
