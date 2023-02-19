@@ -9,6 +9,15 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import com.anychart.AnyChart
+import com.anychart.AnyChartView
+import com.anychart.chart.common.dataentry.DataEntry
+import com.anychart.chart.common.dataentry.ValueDataEntry
+import com.anychart.charts.Pie
+import com.anychart.enums.Align
+import com.anychart.enums.LegendLayout
+import com.anychart.enums.Orientation
+import com.serapercel.trickle.R
 import com.serapercel.trickle.data.entity.Account
 import com.serapercel.trickle.data.entity.User
 import dagger.hilt.android.internal.Contexts
@@ -76,4 +85,39 @@ fun handleNeedsResponse(response: Boolean): NetworkResult<Boolean> {
             NetworkResult.Error("Add Needs Firebase Error!")
         }
     }
+}
+
+// Create pie chart
+fun Context.createPieChart(
+    chart: AnyChartView,
+    title: String,
+    labels: List<String>,
+    datas: List<Float>
+) {
+    val backgroundColor = this.getColor(R.color.backgroundColor)
+    val backgroundColorStr = "#" + Integer.toHexString(backgroundColor).substring(2)
+    val textColor = this.getColor(R.color.primaryColor)
+    val textColorStr = "#" + Integer.toHexString(textColor).substring(2)
+
+
+    val pie: Pie = AnyChart.pie()
+    val dataPieChart: MutableList<DataEntry> = mutableListOf()
+
+    for (index in labels.indices) {
+        dataPieChart.add(
+            ValueDataEntry(
+                labels.elementAt(index),
+                datas.elementAt(index)
+            )
+        )
+    }
+    pie.data(dataPieChart)
+    pie.title(title)
+    pie.title().fontColor(textColorStr)
+    pie.title().fontSize(20)
+    pie.legend().align(Align.TOP)
+    pie.legend().position(Orientation.RIGHT)
+    pie.legend().itemsLayout(LegendLayout.VERTICAL)
+    pie.background().fill(backgroundColorStr)
+    chart.setChart(pie)
 }

@@ -59,7 +59,10 @@ class MainOverviewViewModel @Inject constructor(
 
             for (t in transactionData) {
                 if (t.account.name == a) {
-                    total += t.price.toFloat()
+                    if(t.income){
+                        total += t.price.toFloat()
+                    }else
+                        total -= t.price.toFloat()
                 }
             }
             priceData.add(total)
