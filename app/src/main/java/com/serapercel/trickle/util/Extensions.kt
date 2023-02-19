@@ -102,7 +102,6 @@ fun Context.createPieChart(
 
     val pie: Pie = AnyChart.pie()
     val dataPieChart: MutableList<DataEntry> = mutableListOf()
-
     for (index in labels.indices) {
         dataPieChart.add(
             ValueDataEntry(

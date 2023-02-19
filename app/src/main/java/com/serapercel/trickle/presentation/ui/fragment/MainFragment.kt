@@ -30,7 +30,11 @@ class MainFragment @Inject constructor(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        replaceFragment(requireActivity(), R.id.fragmentContainerOverview, MainOverviewFragment(account))
+        replaceFragment(
+            requireActivity(),
+            R.id.fragmentContainerOverview,
+            MainOverviewFragment(account)
+        )
         replaceFragment(
             requireActivity(),
             R.id.fragmentContainerNeeds,
@@ -45,6 +49,14 @@ class MainFragment @Inject constructor(
 
         binding.btnCalculate.setOnClickListener {
             replaceFragment(requireActivity(), R.id.mainContainer, CalculatorFragment())
+        }
+
+        binding.btnNextOverview.setOnClickListener {
+            replaceFragment(
+                requireActivity(),
+                R.id.fragmentContainerOverview,
+                UserOverviewFragment(account)
+            )
         }
     }
 

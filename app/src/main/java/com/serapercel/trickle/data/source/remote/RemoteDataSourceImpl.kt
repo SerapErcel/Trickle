@@ -1,6 +1,5 @@
 package com.serapercel.trickle.data.source.remote
 
-import android.util.Log
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -110,7 +109,6 @@ class RemoteDataSourceImpl @Inject constructor(
                         transactionList.add(empSnap.getValue(ITransaction::class.java)!!)
                     }
                 }
-                Log.e("hata", " remote data source user email: ${user.email}")
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -119,7 +117,6 @@ class RemoteDataSourceImpl @Inject constructor(
 
         })
         delay(3000L)
-        Log.e("hata", " remote data source transactionList Size: ${transactionList.size}")
 
         return transactionList
     }
