@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.serapercel.trickle.R
+import com.serapercel.trickle.common.adapter.OverViewPagerAdapter
 import com.serapercel.trickle.data.entity.Account
 import com.serapercel.trickle.databinding.FragmentMainBinding
 import com.serapercel.trickle.util.replaceFragment
@@ -30,11 +31,16 @@ class MainFragment @Inject constructor(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        replaceFragment(
-            requireActivity(),
-            R.id.fragmentContainerOverview,
-            MainOverviewFragment(account)
+
+        val fragmentList = arrayListOf<Fragment>(
+            MainOverviewFragment(account),
+            UserOverviewFragment(account),
+            TotalOverviewFragment(account)
         )
+        val adapter =
+            OverViewPagerAdapter(fragmentList, requireActivity().supportFragmentManager, lifecycle)
+        binding.fragmentContainerOverview.adapter = adapter
+
         replaceFragment(
             requireActivity(),
             R.id.fragmentContainerNeeds,
@@ -49,14 +55,6 @@ class MainFragment @Inject constructor(
 
         binding.btnCalculate.setOnClickListener {
             replaceFragment(requireActivity(), R.id.mainContainer, CalculatorFragment())
-        }
-
-        binding.btnNextOverview.setOnClickListener {
-            replaceFragment(
-                requireActivity(),
-                R.id.fragmentContainerOverview,
-                UserOverviewFragment(account)
-            )
         }
     }
 

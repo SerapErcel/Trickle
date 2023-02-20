@@ -60,7 +60,12 @@ class UserOverviewFragment @Inject constructor(
 
             chart = binding.pieChartUserOverview
 
-            requireContext().createPieChart(chart!!, account.name.uppercase()+" Trickle", labelData, priceData)
+            requireContext().createPieChart(
+                chart!!,
+                account.name.uppercase() + " Trickle",
+                labelData,
+                priceData
+            )
         }
     }
 
