@@ -136,8 +136,8 @@ class TransactionFragment @Inject constructor(
 
     private fun setupRecyclerView() {
         with(binding) {
-            rvLastTransactions.adapter = transactionsAdapter
-            rvLastTransactions.layoutManager = LinearLayoutManager(requireContext())
+            rvTransactions.adapter = transactionsAdapter
+            rvTransactions.layoutManager = LinearLayoutManager(requireContext())
         }
     }
 

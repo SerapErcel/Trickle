@@ -4,11 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundColor"
-    tools:context=".presentation.ui.fragment.MainOverviewFragment">
+    tools:context=".presentation.ui.fragment.UserOverviewFragment">
 
     <com.anychart.AnyChartView
-        android:id="@+id/pieChartMainOverview"
+        android:id="@+id/pieChartUserOverview"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_marginHorizontal="36dp"

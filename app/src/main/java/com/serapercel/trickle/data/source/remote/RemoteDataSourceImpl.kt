@@ -71,9 +71,9 @@ class RemoteDataSourceImpl @Inject constructor(
 
     /** Transactions **/
 
-    val transactionList = arrayListOf<ITransaction>()
 
     override suspend fun getTransactions(account: Account): List<ITransaction> {
+        val transactionList = arrayListOf<ITransaction>()
 
         dbRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -98,7 +98,7 @@ class RemoteDataSourceImpl @Inject constructor(
     }
 
     override suspend fun getAllTransactions(user: User): List<ITransaction> {
-
+        val transactionList = arrayListOf<ITransaction>()
 
         dbRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -116,7 +116,8 @@ class RemoteDataSourceImpl @Inject constructor(
             }
 
         })
-        delay(2000L)
+        delay(3000L)
+
         return transactionList
     }
 
