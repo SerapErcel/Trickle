@@ -46,7 +46,6 @@ class MainFragment @Inject constructor(
             R.id.fragmentContainerNeeds,
             NeedsOverviewFragment(account.user)
         )
-        replaceFragment(requireActivity(), R.id.fragmentContainerCurrency, CurrencyFragment())
         replaceFragment(
             requireActivity(),
             R.id.fragmentContainerTransactions,
