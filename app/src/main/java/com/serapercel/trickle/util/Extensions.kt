@@ -99,24 +99,28 @@ fun Context.createPieChart(
     val textColor = this.getColor(R.color.primaryColor)
     val textColorStr = "#" + Integer.toHexString(textColor).substring(2)
 
-
-    val pie: Pie = AnyChart.pie()
-    val dataPieChart: MutableList<DataEntry> = mutableListOf()
-    for (index in labels.indices) {
-        dataPieChart.add(
-            ValueDataEntry(
-                labels.elementAt(index),
-                datas.elementAt(index)
+    try {
+        val pie: Pie = AnyChart.pie()
+        val dataPieChart: MutableList<DataEntry> = mutableListOf()
+        for (index in labels.indices) {
+            dataPieChart.add(
+                ValueDataEntry(
+                    labels.elementAt(index),
+                    datas.elementAt(index)
+                )
             )
-        )
+        }
+        pie.data(dataPieChart)
+        pie.title(title)
+        pie.title().fontColor(textColorStr)
+        pie.title().fontSize(20)
+        pie.legend().align(Align.TOP)
+        pie.legend().position(Orientation.RIGHT)
+        pie.legend().itemsLayout(LegendLayout.VERTICAL)
+        pie.background().fill(backgroundColorStr)
+        chart.setChart(pie)
+    }catch (excetpion: Exception){
+        // TODO : Show Loading circle
     }
-    pie.data(dataPieChart)
-    pie.title(title)
-    pie.title().fontColor(textColorStr)
-    pie.title().fontSize(20)
-    pie.legend().align(Align.TOP)
-    pie.legend().position(Orientation.RIGHT)
-    pie.legend().itemsLayout(LegendLayout.VERTICAL)
-    pie.background().fill(backgroundColorStr)
-    chart.setChart(pie)
+
 }
