@@ -53,6 +53,7 @@ class TransactionFragment @Inject constructor(
         transactionsViewModel = ViewModelProvider(this)[TransactionsViewModel::class.java]
 
         setupRecyclerView()
+        binding.tvTotal.text = transactionsAdapter.getTotal().toString()
 
         lifecycleScope.launchWhenStarted {
             networkListener = NetworkListener()
@@ -100,9 +101,11 @@ class TransactionFragment @Inject constructor(
                                 requireContext().toastShort("No Data Found")
                             } else {
                                 transactionsAdapter.setData(filteredList)
+                                binding.tvTotal.text = transactionsAdapter.getTotal().toString()
                             }
                         }
                     }
+
                     is NetworkResult.Error -> {
                         requireContext().toastShort(response.message.toString())
                     }
@@ -122,11 +125,15 @@ class TransactionFragment @Inject constructor(
                 is NetworkResult.Success -> {
                     response.data?.let {
                         transactionsAdapter.setData(newData = it)
+                        binding.tvTotal.text = transactionsAdapter.getTotal().toString()
+
                     }
                 }
+
                 is NetworkResult.Error -> {
                     requireContext().toastShort(response.message.toString())
                 }
+
                 is NetworkResult.Loading -> {
                     requireContext().toastShort("Loading")
                 }
