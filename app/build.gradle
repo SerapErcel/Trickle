@@ -43,7 +43,7 @@ android {
 }
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.core:core-ktx:1.10.1'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     testImplementation 'junit:junit:4.13.2'
@@ -53,7 +53,7 @@ dependencies {
     implementation "androidx.legacy:legacy-support-v4:1.0.0"
 
     // Material Component
-    implementation 'com.google.android.material:material:1.8.0'
+    implementation 'com.google.android.material:material:1.9.0'
 
 
     // Navigation Component
@@ -61,7 +61,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
 
     // Room Component
-    kapt "androidx.room:room-compiler:2.5.0"
+    kapt "androidx.room:room-compiler:2.5.1"
 
     // Graph
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
@@ -69,8 +69,8 @@ dependencies {
     implementation 'com.github.AnyChart:AnyChart-Android:1.1.2'
 
     // Firebase
-    implementation 'com.google.firebase:firebase-auth:21.1.0'
-    implementation 'com.google.firebase:firebase-database-ktx:20.1.0'
+    implementation 'com.google.firebase:firebase-auth:22.0.0'
+    implementation 'com.google.firebase:firebase-database-ktx:20.2.1'
 
     // Room Database
     def room_version = "2.5.0"
@@ -79,9 +79,9 @@ dependencies {
     kapt "androidx.room:room-compiler:$room_version"
 
     // Lifecycle
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.5.1"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.5.1"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.6.1"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.6.1"
 
     // Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4"
@@ -94,5 +94,9 @@ dependencies {
 
     // DataStore
     implementation "androidx.datastore:datastore-preferences:1.0.0"
+
+    // JSOUP
+    implementation 'org.jsoup:jsoup:1.16.1'
+
 
 }
