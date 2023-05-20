@@ -7,7 +7,11 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 @IgnoreExtraProperties
 data class Currency(
-    val name: String?,
-    val price: Float?
+    val Isim: String,
+    val CurrencyName: String,
+    val ForexBuying: String,
+    val ForexSelling: String,
+    val BanknoteBuying: String,
+    val BanknoteSelling: String
 ) :
     Parcelable

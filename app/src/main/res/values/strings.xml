@@ -41,5 +41,11 @@
     <string name="expense">Expense</string>
     <string name="income">Income</string>
     <string name="clear_filter">Clear Filter</string>
-    <string name="toplam">Toplam:</string>
+    <string name="toplam">Total:</string>
+    <string name="serbest_piyasa_al">Free Market Buying</string>
+    <string name="serbest_piyasa_sat">Free Market Selling</string>
+    <string name="banka_sat">Bank Selling</string>
+    <string name="banka_al">Bank Buying</string>
+    <string name="doviz_seciniz">Select Currency Type</string>
+    <string name="none">-</string>
 </resources>
