@@ -57,12 +57,16 @@ class MainOverviewFragment @Inject constructor(
             delay(2000)
             chart = binding.pieChartMainOverview
 
-            requireContext().createPieChart(
-                chart!!,
-                "Total Trickle",
-                accountDataTemp,
-                priceDataTemp
-            )
+            try {
+                requireContext().createPieChart(
+                    chart!!,
+                    "Total Trickle",
+                    accountDataTemp,
+                    priceDataTemp
+                )
+            }catch (exception: Exception){
+                // TODO : Show Loading circle
+            }
         }
 
         return binding.root

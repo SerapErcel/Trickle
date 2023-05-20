@@ -41,4 +41,5 @@
     <string name="expense">Expense</string>
     <string name="income">Income</string>
     <string name="clear_filter">Clear Filter</string>
+    <string name="toplam">Toplam:</string>
 </resources>

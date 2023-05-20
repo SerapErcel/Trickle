@@ -57,6 +57,18 @@ class TransactionAdapter @Inject constructor(
 
     override fun getItemCount(): Int = transactionList.size
 
+    fun getTotal(): Double {
+        var total = 0.0
+        for (i in transactionList) {
+            if (i.income) {
+                total += i.price.toDouble()
+            } else {
+                total -= i.price.toDouble()
+            }
+        }
+        return total
+    }
+
     fun setData(newData: List<ITransaction>) {
         if (newData.isNotEmpty()) {
             val transactionsDiffUtil = DataDiffUtil(transactionList, newData)
