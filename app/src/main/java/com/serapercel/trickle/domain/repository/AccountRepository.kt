@@ -21,8 +21,10 @@ class AccountRepository {
                 accountList.clear()
                 if (snapshot.exists()) {
                     for (empSnap in snapshot.child(user.value!!.email!!.removePunctuation()).children) {
-                        val empData = empSnap.getKey().toString()
-                        accountList.add(empData)
+                        val empData = empSnap.key.toString()
+                        if (empData != "needs" && empData != "transactions"){
+                            accountList.add(empData)
+                        }
                     }
                     accountsLiveData.value = accountList
                 }
@@ -46,4 +48,5 @@ class AccountRepository {
             }
         return result
     }
+
 }

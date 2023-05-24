@@ -100,6 +100,11 @@ class HomeFragment : Fragment() {
                     TransactionFragment(account)
                 )
                 else -> {
+                    replaceFragment(
+                        requireActivity(),
+                        R.id.mainContainer,
+                        MainFragment(account)
+                    )
                 }
             }
             true

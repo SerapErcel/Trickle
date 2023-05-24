@@ -2,14 +2,19 @@ package com.serapercel.trickle.presentation.ui.fragment
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.auth.FirebaseAuth
+import com.serapercel.trickle.R
 import com.serapercel.trickle.common.adapter.AccountAdapter
 import com.serapercel.trickle.data.entity.Account
 import com.serapercel.trickle.databinding.FragmentAccountBinding
@@ -26,6 +31,7 @@ class AccountFragment : Fragment() {
     private val args: AccountFragmentArgs by navArgs()
     private lateinit var email: String
     private lateinit var account: String
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,6 +45,7 @@ class AccountFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         email = args.email.toString()
+        auth = FirebaseAuth.getInstance()
 
         viewModel = ViewModelProvider(this).get(AccountViewModel::class.java)
         viewModel.fetchAccounts(email)
@@ -48,6 +55,18 @@ class AccountFragment : Fragment() {
 
         initClickListener()
 
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    try{
+                        auth.signOut()
+                        logoutFromSharedPref()
+                        findNavController().navigate(R.id.action_accountFragment_to_signInFragment)
+                    }catch (e: Exception){
+                        Log.d("hata", "handle catch")
+                    }
+                }
+            })
     }
 
     private fun initClickListener() {
@@ -97,7 +116,6 @@ class AccountFragment : Fragment() {
                 accountAdapter.updateAccountList(accounts)
             }
         }
-
     }
 
     private fun addSharedPref(account: Account) {
@@ -108,6 +126,18 @@ class AccountFragment : Fragment() {
             "${account.name} ${account.user.email} ${account.user.id}"
         editor.putString("account", sharedPrefString)
         editor.apply()
+    }
+
+    private fun logoutFromSharedPref() {
+        try {
+            val sharedPreference =
+                requireContext().getSharedPreferences("ACCOUNT", Context.MODE_PRIVATE)
+            val editor = sharedPreference.edit()
+            editor.remove("account")
+            editor.apply()
+        } catch (e: Exception) {
+            Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onDestroyView() {

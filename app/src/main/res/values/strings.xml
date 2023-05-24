@@ -48,4 +48,6 @@
     <string name="banka_al">Bank Buying</string>
     <string name="doviz_seciniz">Select Currency Type</string>
     <string name="none">-</string>
+    <string name="user_logout">User Logout</string>
+    <string name="account_logout">Account Logout</string>
 </resources>
