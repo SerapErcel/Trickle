@@ -97,7 +97,6 @@ class AccountFragment : Fragment() {
                 accountAdapter.updateAccountList(accounts)
             }
         }
-
     }
 
     private fun addSharedPref(account: Account) {
