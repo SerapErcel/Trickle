@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.serapercel.trickle.databinding.FragmentProfileBinding
@@ -34,20 +35,29 @@ class ProfileFragment : Fragment() {
 
         binding.btnSignOutUser.setOnClickListener {
             auth.signOut()
+            logoutFromSharedPref()
             val intent = Intent(requireActivity(), StarterActivity::class.java)
             startActivity(intent)
         }
         binding.btnSignOutAccount.setOnClickListener {
             if (auth.currentUser != null) {
-                val sharedPreference =
-                    requireContext().getSharedPreferences("ACCOUNT", Context.MODE_PRIVATE)
-                val editor = sharedPreference.edit()
-                editor.remove("account")
-                editor.apply()
+                logoutFromSharedPref()
                 val action =
                     HomeFragmentDirections.actionHomeFragmentToAccountFragment(auth.currentUser!!.email)
                 findNavController().navigate(action)
             }
+        }
+    }
+
+    private fun logoutFromSharedPref() {
+        try {
+            val sharedPreference =
+                requireContext().getSharedPreferences("ACCOUNT", Context.MODE_PRIVATE)
+            val editor = sharedPreference.edit()
+            editor.remove("account")
+            editor.apply()
+        } catch (e: Exception) {
+            Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
         }
     }
 
