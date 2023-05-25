@@ -49,7 +49,7 @@ class AccountFragment : Fragment() {
 
         viewModel = ViewModelProvider(this).get(AccountViewModel::class.java)
         viewModel.fetchAccounts(email)
-        accountAdapter = AccountAdapter(requireActivity(), viewModel.user, arrayListOf())
+        accountAdapter = AccountAdapter(requireActivity(), viewModel, arrayListOf())
         binding.accountRV.adapter = accountAdapter
         binding.accountRV.layoutManager = LinearLayoutManager(context)
 
