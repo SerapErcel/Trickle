@@ -6,58 +6,78 @@
     android:layout_height="match_parent"
     tools:context=".presentation.ui.fragment.AddNeedFragment">
 
-    <EditText
-        android:id="@+id/etCount"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/etCountLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="32dp"
-        android:layout_marginBottom="24dp"
-        android:background="@null"
-        android:ems="10"
+        android:layout_marginTop="64dp"
         android:hint="@string/count"
-        android:importantForAutofill="no"
-        android:inputType="textPersonName"
         android:textColor="@color/secondaryDarkColor"
-        android:textSize="26sp"
-        app:layout_constraintBottom_toTopOf="@+id/etName"
+        android:textColorHint="@color/secondaryColor"
+        app:layout_constraintBottom_toTopOf="@+id/etNameLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintVertical_chainStyle="packed">
 
-    <EditText
-        android:id="@+id/etName"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etCount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="32dp"
+            android:layout_marginBottom="24dp"
+            android:backgroundTint="@color/backgroundColor"
+            android:ems="10"
+            android:importantForAutofill="no"
+            android:inputType="textPersonName"
+            android:textColor="@color/secondaryDarkColor"
+            android:textColorHint="@color/secondaryColor"
+            android:textSize="26sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/etNameLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="32dp"
-        android:layout_marginBottom="24dp"
-        android:background="@null"
-        android:ems="10"
+        android:layout_marginTop="32dp"
         android:hint="@string/name"
-        android:importantForAutofill="no"
-        android:inputType="textPersonName"
         android:textColor="@color/secondaryDarkColor"
-        android:textSize="26sp"
+        android:textColorHint="@color/secondaryColor"
         app:layout_constraintBottom_toTopOf="@+id/btnSaveNeed"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etCount" />
+        app:layout_constraintTop_toBottomOf="@+id/etCountLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="32dp"
+            android:layout_marginBottom="24dp"
+            android:backgroundTint="@color/backgroundColor"
+            android:ems="10"
+            android:importantForAutofill="no"
+            android:inputType="textPersonName"
+            android:textColor="@color/secondaryDarkColor"
+            android:textColorHint="@color/secondaryColor"
+            android:textSize="26sp" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnSaveNeed"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="32dp"
         android:backgroundTint="@color/secondaryColor"
         android:text="@string/add_need"
         android:textColor="@color/textColor"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etName" />
+        app:layout_constraintTop_toBottomOf="@+id/etNameLayout" />
 </androidx.constraintlayout.widget.ConstraintLayout>
