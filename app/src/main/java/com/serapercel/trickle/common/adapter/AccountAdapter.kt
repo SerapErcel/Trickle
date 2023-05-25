@@ -35,7 +35,7 @@ class AccountAdapter(
         holder.binding.twAccountName.text = account
         val newAccount = Account(account, viewModel.user.value!!)
 
-        holder.binding.accountCard.setOnClickListener {
+        holder.binding.twAccountName.setOnClickListener {
             addSharedPref(newAccount)
             val action = AccountFragmentDirections.actionAccountFragmentToHomeFragment2(newAccount)
             Navigation.findNavController(it).navigate(action)
