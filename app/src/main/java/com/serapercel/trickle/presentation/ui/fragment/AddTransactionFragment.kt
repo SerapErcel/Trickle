@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.serapercel.trickle.data.entity.*
 import com.serapercel.trickle.databinding.FragmentAddTransactionBinding
+import com.serapercel.trickle.presentation.ui.fragment.HomeFragment.Companion.item
 import com.serapercel.trickle.presentation.ui.viewModel.AddTransactionViewModel
 import com.serapercel.trickle.util.NetworkResult
 import com.serapercel.trickle.util.toastLong
@@ -37,6 +38,7 @@ class AddTransactionFragment @Inject constructor(
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentAddTransactionBinding.inflate(inflater, container, false)
+        item = "add transaction"
         return binding.root
     }
 
@@ -104,9 +106,11 @@ class AddTransactionFragment @Inject constructor(
                         requireContext().toastShort("Transaction Added")
                     }
                 }
+
                 is NetworkResult.Error -> {
                     requireContext().toastShort(response.message.toString())
                 }
+
                 is NetworkResult.Loading -> {
                     requireContext().toastShort("Adding")
                 }
@@ -114,8 +118,8 @@ class AddTransactionFragment @Inject constructor(
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
+    override fun onDestroy() {
+        super.onDestroy()
         _binding = null
     }
 

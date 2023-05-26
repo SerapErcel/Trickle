@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.serapercel.trickle.R
 import com.serapercel.trickle.databinding.FragmentSignUpBinding
+import com.serapercel.trickle.presentation.ui.fragment.HomeFragment.Companion.item
 import com.serapercel.trickle.util.toastLong
 import com.serapercel.trickle.util.toastShort
 
@@ -26,6 +27,7 @@ class SignUpFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSignUpBinding.inflate(inflater, container, false)
+        item = "sign up"
         return binding.root
     }
 
@@ -59,8 +61,8 @@ class SignUpFragment : Fragment() {
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
+    override fun onDestroy() {
+        super.onDestroy()
         _binding = null
     }
 

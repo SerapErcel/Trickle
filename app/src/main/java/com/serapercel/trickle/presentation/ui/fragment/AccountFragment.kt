@@ -18,6 +18,7 @@ import com.serapercel.trickle.R
 import com.serapercel.trickle.common.adapter.AccountAdapter
 import com.serapercel.trickle.data.entity.Account
 import com.serapercel.trickle.databinding.FragmentAccountBinding
+import com.serapercel.trickle.presentation.ui.fragment.HomeFragment.Companion.item
 import com.serapercel.trickle.presentation.ui.viewModel.AccountViewModel
 import com.serapercel.trickle.util.toAccount
 import com.serapercel.trickle.util.toastLong
@@ -38,6 +39,7 @@ class AccountFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentAccountBinding.inflate(inflater, container, false)
+        item = "account"
         return binding.root
     }
 
@@ -58,11 +60,13 @@ class AccountFragment : Fragment() {
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    try{
-                        auth.signOut()
-                        logoutFromSharedPref()
-                        findNavController().navigate(R.id.action_accountFragment_to_signInFragment)
-                    }catch (e: Exception){
+                    try {
+                        if (item == "account") {
+                            auth.signOut()
+                            logoutFromSharedPref()
+                            findNavController().navigate(R.id.action_accountFragment_to_signInFragment)
+                        }
+                    } catch (e: Exception) {
                         Log.d("hata", "handle catch")
                     }
                 }
@@ -88,11 +92,11 @@ class AccountFragment : Fragment() {
             }
         }
         binding.btnLogout.setOnClickListener {
-            try{
+            try {
                 auth.signOut()
                 logoutFromSharedPref()
                 findNavController().navigate(R.id.action_accountFragment_to_signInFragment)
-            }catch (e: Exception){
+            } catch (e: Exception) {
                 Log.d("hata", "handle catch")
             }
         }
@@ -149,8 +153,8 @@ class AccountFragment : Fragment() {
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
+    override fun onDestroy() {
+        super.onDestroy()
         _binding = null
     }
 
