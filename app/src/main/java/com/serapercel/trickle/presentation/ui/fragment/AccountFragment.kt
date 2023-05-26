@@ -47,7 +47,7 @@ class AccountFragment : Fragment() {
         email = args.email.toString()
         auth = FirebaseAuth.getInstance()
 
-        viewModel = ViewModelProvider(this).get(AccountViewModel::class.java)
+        viewModel = ViewModelProvider(this)[AccountViewModel::class.java]
         viewModel.fetchAccounts(email)
         accountAdapter = AccountAdapter(requireActivity(), viewModel, arrayListOf())
         binding.accountRV.adapter = accountAdapter
@@ -85,6 +85,15 @@ class AccountFragment : Fragment() {
                 findNavController().navigate(action)
             } else {
                 requireContext().toastLong("Add Account Error")
+            }
+        }
+        binding.btnLogout.setOnClickListener {
+            try{
+                auth.signOut()
+                logoutFromSharedPref()
+                findNavController().navigate(R.id.action_accountFragment_to_signInFragment)
+            }catch (e: Exception){
+                Log.d("hata", "handle catch")
             }
         }
     }
