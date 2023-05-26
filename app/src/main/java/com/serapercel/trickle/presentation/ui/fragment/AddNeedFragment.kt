@@ -1,7 +1,6 @@
 package com.serapercel.trickle.presentation.ui.fragment
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -54,14 +53,14 @@ class AddNeedFragment @Inject constructor(
             when (response) {
                 is NetworkResult.Success -> {
                     response.data?.let {
-                        Log.e("hata", "request firebase data ${response.data}")
+                        requireContext().toastShort("Need Added")
                     }
                 }
                 is NetworkResult.Error -> {
                     requireContext().toastShort(response.message.toString())
                 }
                 is NetworkResult.Loading -> {
-                    requireContext().toastShort("Loading")
+                    requireContext().toastShort("Adding")
                 }
             }
         }

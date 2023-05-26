@@ -59,13 +59,18 @@ class UserOverviewFragment @Inject constructor(
             labelData.add("Expense")
 
             chart = binding.pieChartUserOverview
+            try {
+                requireContext().createPieChart(
+                    chart!!,
+                    account.name.uppercase() + " Trickle",
+                    labelData,
+                    priceData
+                )
+            } catch (e: Exception) {
+                binding.pieChartUserOverview.visibility = View.INVISIBLE
+                binding.tvPieError.visibility = View.VISIBLE
+            }
 
-            requireContext().createPieChart(
-                chart!!,
-                account.name.uppercase() + " Trickle",
-                labelData,
-                priceData
-            )
         }
     }
 

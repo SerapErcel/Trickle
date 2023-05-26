@@ -50,4 +50,5 @@
     <string name="none">-</string>
     <string name="user_logout">User Logout</string>
     <string name="account_logout">Account Logout</string>
+    <string name="a_problem_was_encountered">A problem was encountered!</string>
 </resources>
