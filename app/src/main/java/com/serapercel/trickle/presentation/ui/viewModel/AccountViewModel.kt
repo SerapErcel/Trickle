@@ -20,5 +20,9 @@ class AccountViewModel : ViewModel() {
         return repository.addAccount(email,newAccount, user)
     }
 
+    fun deleteAccount(email: String, newAccount: String): Boolean {
+        return repository.deleteAccount(email,newAccount, user)
+    }
+
 
 }

@@ -3,17 +3,16 @@ package com.serapercel.trickle.common.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.lifecycle.MutableLiveData
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.serapercel.trickle.data.entity.Account
-import com.serapercel.trickle.data.entity.User
 import com.serapercel.trickle.databinding.CardAccountBinding
 import com.serapercel.trickle.presentation.ui.fragment.AccountFragmentDirections
+import com.serapercel.trickle.presentation.ui.viewModel.AccountViewModel
 
 class AccountAdapter(
     var context: Context,
-    var user: MutableLiveData<User>,
+    var viewModel: AccountViewModel,
     var accountList: ArrayList<String>
 ) : RecyclerView.Adapter<AccountAdapter.CardAccountHolder>() {
     inner class CardAccountHolder(binding: CardAccountBinding) :
@@ -34,12 +33,15 @@ class AccountAdapter(
     override fun onBindViewHolder(holder: CardAccountHolder, position: Int) {
         val account = accountList[position]
         holder.binding.twAccountName.text = account
+        val newAccount = Account(account, viewModel.user.value!!)
 
-        holder.binding.accountCard.setOnClickListener {
-            val newAccount = Account(account, user.value!!)
+        holder.binding.twAccountName.setOnClickListener {
             addSharedPref(newAccount)
             val action = AccountFragmentDirections.actionAccountFragmentToHomeFragment2(newAccount)
             Navigation.findNavController(it).navigate(action)
+        }
+        holder.binding.ivDelete.setOnClickListener {
+            viewModel.deleteAccount(viewModel.user.value!!.email!!, newAccount.name )
         }
     }
 

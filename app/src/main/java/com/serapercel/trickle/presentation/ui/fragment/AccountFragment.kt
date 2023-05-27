@@ -18,6 +18,7 @@ import com.serapercel.trickle.R
 import com.serapercel.trickle.common.adapter.AccountAdapter
 import com.serapercel.trickle.data.entity.Account
 import com.serapercel.trickle.databinding.FragmentAccountBinding
+import com.serapercel.trickle.presentation.ui.fragment.HomeFragment.Companion.item
 import com.serapercel.trickle.presentation.ui.viewModel.AccountViewModel
 import com.serapercel.trickle.util.toAccount
 import com.serapercel.trickle.util.toastLong
@@ -38,6 +39,7 @@ class AccountFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentAccountBinding.inflate(inflater, container, false)
+        item = "account"
         return binding.root
     }
 
@@ -47,9 +49,9 @@ class AccountFragment : Fragment() {
         email = args.email.toString()
         auth = FirebaseAuth.getInstance()
 
-        viewModel = ViewModelProvider(this).get(AccountViewModel::class.java)
+        viewModel = ViewModelProvider(this)[AccountViewModel::class.java]
         viewModel.fetchAccounts(email)
-        accountAdapter = AccountAdapter(requireActivity(), viewModel.user, arrayListOf())
+        accountAdapter = AccountAdapter(requireActivity(), viewModel, arrayListOf())
         binding.accountRV.adapter = accountAdapter
         binding.accountRV.layoutManager = LinearLayoutManager(context)
 
@@ -58,11 +60,13 @@ class AccountFragment : Fragment() {
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    try{
-                        auth.signOut()
-                        logoutFromSharedPref()
-                        findNavController().navigate(R.id.action_accountFragment_to_signInFragment)
-                    }catch (e: Exception){
+                    try {
+                        if (item == "account") {
+                            auth.signOut()
+                            logoutFromSharedPref()
+                            findNavController().navigate(R.id.action_accountFragment_to_signInFragment)
+                        }
+                    } catch (e: Exception) {
                         Log.d("hata", "handle catch")
                     }
                 }
@@ -85,6 +89,15 @@ class AccountFragment : Fragment() {
                 findNavController().navigate(action)
             } else {
                 requireContext().toastLong("Add Account Error")
+            }
+        }
+        binding.btnLogout.setOnClickListener {
+            try {
+                auth.signOut()
+                logoutFromSharedPref()
+                findNavController().navigate(R.id.action_accountFragment_to_signInFragment)
+            } catch (e: Exception) {
+                Log.d("hata", "handle catch")
             }
         }
     }
@@ -140,8 +153,8 @@ class AccountFragment : Fragment() {
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
+    override fun onDestroy() {
+        super.onDestroy()
         _binding = null
     }
 

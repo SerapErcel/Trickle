@@ -15,6 +15,7 @@ import com.serapercel.trickle.data.entity.Account
 import com.serapercel.trickle.data.source.remote.XMLResult
 import com.serapercel.trickle.databinding.FragmentMainBinding
 import com.serapercel.trickle.util.replaceFragment
+import com.serapercel.trickle.util.toastShort
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -40,32 +41,42 @@ class MainFragment @Inject constructor(
         val policy = ThreadPolicy.Builder().permitAll().build()
         StrictMode.setThreadPolicy(policy)
 
-        val xml = XMLResult()
-        val currencyList = xml.xmlDoviz()
 
-        val currencyNameList = mutableListOf<String>()
-        currencyList.forEach { currencyNameList.add(it.Isim) }
+        try {
+            val xml = XMLResult()
+            val currencyList = xml.xmlDoviz()
 
-        val adapter2: ArrayAdapter<String> =
-            ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, currencyNameList)
-        binding.spnCurrency.adapter = adapter2
+            val currencyNameList = mutableListOf<String>()
+            currencyList.forEach { currencyNameList.add(it.Isim) }
 
-        binding.spnCurrency.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                binding.tvSpAlis.text = currencyList[position].ForexBuying
-                binding.tvSpSatis.text = currencyList[position].ForexSelling
-                binding.tvBankaAlis.text = currencyList[position].BanknoteBuying
-                binding.tvBankaSatis.text = currencyList[position].BanknoteSelling
+            val adapter2: ArrayAdapter<String> =
+                ArrayAdapter(
+                    requireContext(),
+                    android.R.layout.simple_spinner_item,
+                    currencyNameList
+                )
+            binding.spnCurrency.adapter = adapter2
 
-            }
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-            }
+            binding.spnCurrency.onItemSelectedListener =
+                object : AdapterView.OnItemSelectedListener {
+                    override fun onItemSelected(
+                        parent: AdapterView<*>?,
+                        view: View?,
+                        position: Int,
+                        id: Long
+                    ) {
+                        binding.tvSpAlis.text = currencyList[position].ForexBuying
+                        binding.tvSpSatis.text = currencyList[position].ForexSelling
+                        binding.tvBankaAlis.text = currencyList[position].BanknoteBuying
+                        binding.tvBankaSatis.text = currencyList[position].BanknoteSelling
+                    }
+
+                    override fun onNothingSelected(parent: AdapterView<*>?) {
+                    }
+                }
+        } catch (e: Exception) {
+            requireContext().toastShort("No Internet Connection")
         }
 
         val fragmentList = arrayListOf<Fragment>(

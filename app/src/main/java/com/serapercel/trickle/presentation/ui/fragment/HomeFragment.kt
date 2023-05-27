@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.serapercel.trickle.R
@@ -21,6 +22,10 @@ class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+
+    companion object {
+        var item = "main"
+    }
 
     private val rotateOpen: Animation by lazy {
         AnimationUtils.loadAnimation(
@@ -56,6 +61,7 @@ class HomeFragment : Fragment() {
 
         viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
 
+        item = "main"
         return binding.root
     }
 
@@ -64,6 +70,17 @@ class HomeFragment : Fragment() {
         val bundle = arguments
         val args = HomeFragmentArgs.fromBundle(bundle!!)
         val account = args.account
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    if (item != "main") {
+                        binding.bottomNavigationView.selectedItemId = R.id.mainFragment
+                    } else {
+                        onBackPressed()
+                    }
+                }
+            })
 
         replaceFragment(requireActivity(), R.id.mainContainer, MainFragment(account))
         binding.fab.setOnClickListener {
@@ -79,30 +96,54 @@ class HomeFragment : Fragment() {
         }
         binding.bottomNavigationView.setOnItemSelectedListener {
             when (it.itemId) {
-                R.id.mainFragment -> replaceFragment(
-                    requireActivity(),
-                    R.id.mainContainer,
-                    MainFragment(account)
-                )
-                R.id.needsFragment -> replaceFragment(
-                    requireActivity(),
-                    R.id.mainContainer,
-                    NeedsFragment(account.user)
-                )
-                R.id.profileFragment -> replaceFragment(
-                    requireActivity(),
-                    R.id.mainContainer,
-                    ProfileFragment()
-                )
-                R.id.analyticsFragment -> replaceFragment(
-                    requireActivity(),
-                    R.id.mainContainer,
-                    TransactionFragment(account)
-                )
+                R.id.mainFragment -> {
+                    if (item != "main") {
+                        replaceFragment(
+                            requireActivity(),
+                            R.id.mainContainer,
+                            MainFragment(account)
+                        )
+                        item = "main"
+                    }
+                }
+
+                R.id.needsFragment -> {
+                    if (item != "needs") {
+                        replaceFragment(
+                            requireActivity(),
+                            R.id.mainContainer,
+                            NeedsFragment(account.user)
+                        )
+                        item = "needs"
+                    }
+                }
+
+                R.id.profileFragment -> {
+                    if (item != "profile") {
+                        replaceFragment(
+                            requireActivity(),
+                            R.id.mainContainer,
+                            ProfileFragment()
+                        )
+                        item = "profile"
+                    }
+                }
+
+                R.id.analyticsFragment -> {
+                    if (item != "analytics") {
+                        replaceFragment(
+                            requireActivity(),
+                            R.id.mainContainer,
+                            TransactionFragment(account)
+                        )
+                        item = "analytics"
+                    }
+                }
+
                 else -> {
                     replaceFragment(
                         requireActivity(),
-                        R.id.mainContainer,
+                        R.id.miHolder,
                         MainFragment(account)
                     )
                 }
@@ -160,8 +201,13 @@ class HomeFragment : Fragment() {
         })
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
+    fun onBackPressed() {
+        onDestroy()
+        requireActivity().finish()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
         _binding = null
     }
 }

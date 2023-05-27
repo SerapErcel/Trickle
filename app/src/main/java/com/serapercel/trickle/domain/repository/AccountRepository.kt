@@ -49,4 +49,17 @@ class AccountRepository {
         return result
     }
 
+    fun deleteAccount(email: String, newAccount: String, user: MutableLiveData<User>): Boolean {
+        var result = true
+        user.value = User(userId, email)
+        dbRef.child(user.value!!.email!!.removePunctuation()).child(newAccount).removeValue()
+            .addOnSuccessListener {
+                result = true
+            }.addOnFailureListener { exception ->
+                exception.localizedMessage?.let {
+                    result = false
+                }
+            }
+        return result
+    }
 }

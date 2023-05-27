@@ -1,7 +1,6 @@
 package com.serapercel.trickle.presentation.ui.fragment
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.serapercel.trickle.data.entity.Need
 import com.serapercel.trickle.data.entity.User
 import com.serapercel.trickle.databinding.FragmentAddNeedBinding
+import com.serapercel.trickle.presentation.ui.fragment.HomeFragment.Companion.item
 import com.serapercel.trickle.presentation.ui.viewModel.AddNeedViewModel
 import com.serapercel.trickle.util.NetworkResult
 import com.serapercel.trickle.util.toastShort
@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 class AddNeedFragment @Inject constructor(
     var user: User
-): Fragment() {
+) : Fragment() {
 
     private var _binding: FragmentAddNeedBinding? = null
     private val binding get() = _binding!!
@@ -33,6 +33,8 @@ class AddNeedFragment @Inject constructor(
         _binding = FragmentAddNeedBinding.inflate(inflater, container, false)
 
         addNeedViewModel = ViewModelProvider(requireActivity()).get(AddNeedViewModel::class.java)
+
+        item = "add need"
 
         binding.btnSaveNeed.setOnClickListener {
             name = binding.etName.text.toString()
@@ -54,21 +56,23 @@ class AddNeedFragment @Inject constructor(
             when (response) {
                 is NetworkResult.Success -> {
                     response.data?.let {
-                        Log.e("hata", "request firebase data ${response.data}")
+                        requireContext().toastShort("Need Added")
                     }
                 }
+
                 is NetworkResult.Error -> {
                     requireContext().toastShort(response.message.toString())
                 }
+
                 is NetworkResult.Loading -> {
-                    requireContext().toastShort("Loading")
+                    requireContext().toastShort("Adding")
                 }
             }
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
+    override fun onDestroy() {
+        super.onDestroy()
         _binding = null
     }
 

@@ -1,16 +1,19 @@
 package com.serapercel.trickle.presentation.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.serapercel.trickle.R
 import com.serapercel.trickle.databinding.FragmentSignInBinding
+import com.serapercel.trickle.presentation.ui.fragment.HomeFragment.Companion.item
 import com.serapercel.trickle.util.toastLong
 import com.serapercel.trickle.util.toastShort
 
@@ -32,11 +35,26 @@ class SignInFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSignInBinding.inflate(inflater, container, false)
+        item = "sign in"
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    try {
+                        if (item == "sign in") {
+                            onDestroy()
+                            requireActivity().finish()
+                        }
+                    } catch (e: Exception) {
+                        Log.d("hata", "handle catch")
+                    }
+                }
+            })
 
         auth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance()
@@ -89,8 +107,8 @@ class SignInFragment : Fragment() {
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
+    override fun onDestroy() {
+        super.onDestroy()
         _binding = null
     }
 

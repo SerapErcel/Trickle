@@ -64,8 +64,9 @@ class MainOverviewFragment @Inject constructor(
                     accountDataTemp,
                     priceDataTemp
                 )
-            }catch (exception: Exception){
-                // TODO : Show Loading circle
+            } catch (exception: Exception) {
+                binding.pieChartMainOverview.visibility = View.INVISIBLE
+                binding.tvPieError.visibility = View.VISIBLE
             }
         }
 

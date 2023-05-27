@@ -15,6 +15,7 @@ import com.serapercel.trickle.presentation.ui.viewModel.TransactionsViewModel
 import com.serapercel.trickle.util.createPieChart
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
+import java.lang.Exception
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -63,8 +64,12 @@ class TotalOverviewFragment @Inject constructor(
             labelData.add("Total Expense")
 
             chart = binding.pieChartTotalOverview
-
-            requireContext().createPieChart(chart!!, "Bank Statement", labelData, priceData)
+            try {
+                requireContext().createPieChart(chart!!, "Bank Statement", labelData, priceData)
+            } catch (e: Exception) {
+                binding.pieChartTotalOverview.visibility = View.INVISIBLE
+                binding.tvPieError.visibility = View.VISIBLE
+            }
         }
     }
 
