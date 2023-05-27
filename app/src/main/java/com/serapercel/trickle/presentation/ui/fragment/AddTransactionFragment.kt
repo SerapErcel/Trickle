@@ -53,7 +53,7 @@ class AddTransactionFragment @Inject constructor(
             val datePicker = DatePickerDialog(
                 requireContext(),
                 android.R.style.Theme_Holo_Light_Dialog_MinWidth,
-                DatePickerDialog.OnDateSetListener { datePicker, y, m, d ->
+                { datePicker, y, m, d ->
 
                     val selectDate = Calendar.getInstance()
                     selectDate.set(Calendar.YEAR, y)

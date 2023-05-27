@@ -105,7 +105,7 @@ class NeedsViewModel @Inject constructor(
         }
 
     private val _needDeleteResponse: MutableLiveData<NetworkResult<Boolean>> = MutableLiveData()
-    val needDeleteResponse: LiveData<NetworkResult<Boolean>> = _needDeleteResponse
+    // val needDeleteResponse: LiveData<NetworkResult<Boolean>> = _needDeleteResponse
 
     fun remoweNeed(need: Need, user: User) = viewModelScope.launch {
         deleteNeedSafeCall(need, user)

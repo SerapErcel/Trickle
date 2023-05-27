@@ -79,7 +79,7 @@ class MainFragment @Inject constructor(
             requireContext().toastShort("No Internet Connection")
         }
 
-        val fragmentList = arrayListOf<Fragment>(
+        val fragmentList = arrayListOf(
             MainOverviewFragment(account),
             UserOverviewFragment(account),
             TotalOverviewFragment(account)

@@ -62,7 +62,7 @@ class LastTransactionsViewModel @Inject constructor(
 
     private val _allTransactionsResponse: MutableLiveData<NetworkResult<List<ITransaction>>> =
         MutableLiveData()
-    val allTransactionsResponse: LiveData<NetworkResult<List<ITransaction>>> = _transactionResponse
+    // val allTransactionsResponse: LiveData<NetworkResult<List<ITransaction>>> = _transactionResponse
 
     fun getAllTransactions(user: User) = viewModelScope.launch {
         getAllTransactionsSafeCall(user)

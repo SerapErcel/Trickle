@@ -1,8 +1,6 @@
 package com.serapercel.trickle.data.source.local
 
-import com.serapercel.trickle.data.entity.ITransaction
 import com.serapercel.trickle.data.entity.Need
-import com.serapercel.trickle.data.entity.User
 import kotlinx.coroutines.flow.Flow
 
 interface LocalDataSource {
@@ -24,11 +22,11 @@ interface LocalDataSource {
 
     /** Transactions **/
 
-    suspend fun getTransactions(user: User): Flow<List<ITransaction>>
+   // suspend fun getTransactions(user: User): Flow<List<ITransaction>>
 
-    suspend fun addTransaction(transaction: ITransaction, user: User)
+    //suspend fun addTransaction(transaction: ITransaction, user: User)
 
-    suspend fun deleteTransaction(transaction: ITransaction, user: User)
+   // suspend fun deleteTransaction(transaction: ITransaction, user: User)
 
-    fun readTransactionsDb(): Flow<List<ITransaction>>
+   // fun readTransactionsDb(): Flow<List<ITransaction>>
 }

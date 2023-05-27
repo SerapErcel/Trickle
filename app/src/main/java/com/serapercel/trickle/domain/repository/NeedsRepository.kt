@@ -22,5 +22,4 @@ interface NeedsRepository {
 
     suspend fun deleteAllNeed()
 
-    suspend fun updateNeed(id: Int?, name: String?, count: String?)
 }
