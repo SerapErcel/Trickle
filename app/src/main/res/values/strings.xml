@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Trickle</string>
     <string name="trickle">Trickle</string>
     <string name="design">design</string>
@@ -24,13 +24,13 @@
     <string name="account">Account</string>
     <string name="shopping_list">Needs</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment" tools:keep="@string/hello_blank_fragment">Hello blank fragment</string>
     <string name="calculate">Calculate</string>
-    <string name="overview">Overview</string>
+    <string name="overview" tools:keep="@string/overview">Overview</string>
     <string name="needs">Needs</string>
-    <string name="currency">Currency</string>
+    <string name="currency" tools:keep="@string/currency">Currency</string>
     <string name="last_transactions">Last Transactıons</string>
-    <string name="filter">Fılter</string>
+    <string name="filter" tools:keep="@string/filter">Fılter</string>
     <string name="name">Name</string>
     <string name="count">Count</string>
     <string name="add_need">Add Need</string>
@@ -46,9 +46,12 @@
     <string name="serbest_piyasa_sat">Free Market Selling</string>
     <string name="banka_sat">Bank Selling</string>
     <string name="banka_al">Bank Buying</string>
-    <string name="doviz_seciniz">Select Currency Type</string>
+    <string name="doviz_seciniz" tools:keep="@string/doviz_seciniz">Select Currency Type</string>
     <string name="none">-</string>
     <string name="user_logout">User Logout</string>
     <string name="account_logout">Account Logout</string>
     <string name="a_problem_was_encountered">A problem was encountered!</string>
+    <string name="passwords_too_short">Password must be min 6</string>
+    <string name="needs_empty">Needs Empty!</string>
+    <string name="transactions_empty">Transactions Empty!</string>
 </resources>

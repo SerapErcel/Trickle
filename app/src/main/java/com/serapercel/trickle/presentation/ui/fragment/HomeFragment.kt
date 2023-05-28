@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.activity.OnBackPressedCallback
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.serapercel.trickle.R
 import com.serapercel.trickle.databinding.FragmentHomeBinding
@@ -194,11 +193,11 @@ class HomeFragment : Fragment() {
 
     private fun observeLiveData() {
         viewModel.getAccountData(requireContext())
-        viewModel.accountLiveData.observe(viewLifecycleOwner, Observer { account ->
+        viewModel.accountLiveData.observe(viewLifecycleOwner) { account ->
             account?.let {
                 binding.tvToolbarAccountName.text = account.name
             }
-        })
+        }
     }
 
     fun onBackPressed() {

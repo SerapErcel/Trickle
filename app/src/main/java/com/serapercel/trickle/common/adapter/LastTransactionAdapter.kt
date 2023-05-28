@@ -1,6 +1,5 @@
 package com.serapercel.trickle.common.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -12,7 +11,6 @@ import com.serapercel.trickle.util.DataDiffUtil
 import javax.inject.Inject
 
 class LastTransactionAdapter @Inject constructor(
-    var context: Context
 ) : RecyclerView.Adapter<LastTransactionAdapter.LastTransactionCardHolder>() {
 
     var transactionList = emptyList<ITransaction>()

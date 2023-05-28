@@ -44,15 +44,16 @@ class SignUpFragment : Fragment() {
             passwordAgain = binding.etPassword2.text.toString()
 
             if (email.isNotEmpty() && password.isNotEmpty() && passwordAgain.isNotEmpty()) {
-                if (password == passwordAgain) {
-                    auth.createUserWithEmailAndPassword(email, password).addOnSuccessListener {
-                        requireContext().toastShort(getString(R.string.sign_up_success))
-                        findNavController().navigate(R.id.action_signUpFragment_to_signInFragment)
-                    }.addOnFailureListener { exception ->
-                        exception.localizedMessage?.let { it -> requireContext().toastLong(it) }
-                    }
-                } else requireContext().toastShort(getString(R.string.passwords_not_match))
-
+                if (password.length>=6) {
+                    if (password == passwordAgain) {
+                        auth.createUserWithEmailAndPassword(email, password).addOnSuccessListener {
+                            requireContext().toastShort(getString(R.string.sign_up_success))
+                            findNavController().navigate(R.id.action_signUpFragment_to_signInFragment)
+                        }.addOnFailureListener { exception ->
+                            exception.localizedMessage?.let { it -> requireContext().toastLong(it) }
+                        }
+                    } else requireContext().toastShort(getString(R.string.passwords_not_match))
+                }else requireContext().toastShort(getString(R.string.passwords_too_short))
             } else requireContext().toastShort(getString(R.string.empty_fields))
         }
 

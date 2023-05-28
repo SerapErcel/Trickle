@@ -30,7 +30,7 @@ class ViewPagerFragment : Fragment() {
     }
 
     private fun initView() {
-        val fragmentList = arrayListOf<Fragment>(
+        val fragmentList = arrayListOf(
             FirstOnboardingFragment(),
             SecondOnboardingFragment(),
             ThirdOnboardingFragment()

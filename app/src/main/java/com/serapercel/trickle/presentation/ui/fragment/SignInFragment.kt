@@ -80,7 +80,7 @@ class SignInFragment : Fragment() {
                 auth.sendPasswordResetEmail(email).addOnSuccessListener {
                     requireContext().toastShort(getString(R.string.send_reset_link))
                 }.addOnFailureListener { exception ->
-                    exception.localizedMessage?.let { it -> requireContext().toastLong(it) }
+                    exception.localizedMessage?.let { requireContext().toastLong(it) }
                 }
             } else requireContext().toastShort(getString(R.string.enter_email))
         }
@@ -92,7 +92,7 @@ class SignInFragment : Fragment() {
                 val action = SignInFragmentDirections.actionSignInFragmentToAccountFragment(email)
                 findNavController().navigate(action)
             }.addOnFailureListener { exception ->
-                exception.localizedMessage?.let { it -> requireContext().toastLong(it) }
+                exception.localizedMessage?.let { requireContext().toastLong(it) }
             }
         } else requireContext().toastShort(getString(R.string.empty_fields))
 
