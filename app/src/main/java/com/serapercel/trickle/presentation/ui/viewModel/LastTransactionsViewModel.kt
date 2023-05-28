@@ -92,7 +92,7 @@ class LastTransactionsViewModel @Inject constructor(
                 NetworkResult.Success(data = response)
             }
             else -> {
-                NetworkResult.Error("Get Needs Firebase Error!")
+                NetworkResult.Success(data = response)
             }
         }
     }

@@ -55,7 +55,6 @@ class NeedsOverviewFragment @Inject constructor(
                         requestFirebaseData()
                     } else {
                         readDatabase()
-
                     }
                 }
         }
@@ -95,6 +94,7 @@ class NeedsOverviewFragment @Inject constructor(
                 is NetworkResult.Success -> {
                     response.data?.let {
                         needsAdapter.setData(newData = it)
+                        binding.tvEmptyData.visibility=View.INVISIBLE
                     }
                 }
                 is NetworkResult.Error -> {
@@ -113,6 +113,7 @@ class NeedsOverviewFragment @Inject constructor(
             needsViewModel.reedNeeds.observe(viewLifecycleOwner) { database ->
                 if (database.isNotEmpty()) {
                     needsAdapter.setData(database)
+                    binding.tvEmptyData.visibility=View.INVISIBLE
                 }
             }
         }

@@ -52,4 +52,6 @@
     <string name="account_logout">Account Logout</string>
     <string name="a_problem_was_encountered">A problem was encountered!</string>
     <string name="passwords_too_short">Password must be min 6</string>
+    <string name="needs_empty">Needs Empty!</string>
+    <string name="transactions_empty">Transactions Empty!</string>
 </resources>

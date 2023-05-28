@@ -107,6 +107,7 @@ class LastTransactionsFragment @Inject constructor(
                 is NetworkResult.Success -> {
                     response.data?.let {
                         transactionsAdapter.setData(newData = it)
+                        binding.tvEmptyData.visibility=View.INVISIBLE
                     }
                 }
                 is NetworkResult.Error -> {
