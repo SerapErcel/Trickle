@@ -2,7 +2,7 @@
 ## Finance Android Application
 ## Budget Tracker and Shopping List Android App
 
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 Welcome to the Budget Tracker and Shopping List Android App! This app allows you to track your budget and create shopping lists while collaborating with multiple users. It also includes a built-in calculator and provides real-time stock market information.
 
@@ -35,7 +35,7 @@ Welcome to the Budget Tracker and Shopping List Android App! This app allows you
 
 ## Installation
 
-1. Clone the repository: `git clone https://github.com/your-username/budget-tracker-app.git`
+1. Clone the repository: `git clone https://github.com/SerapErcel/Trickle.git`
 2. Open the project in your preferred Android development environment.
 3. Build and run the app on an Android device or emulator.
 4. Sign up for a new account within the app or log in with your existing credentials.
