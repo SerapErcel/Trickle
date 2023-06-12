@@ -55,7 +55,7 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## Contact
 
-For any inquiries or feedback, please contact us at budgettrackerapp@example.com.
+For any inquiries or feedback, please contact us at ercelserap@gmail.com.
 
 Enjoy managing your budget and shopping lists with our app!
 
