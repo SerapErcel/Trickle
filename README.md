@@ -29,6 +29,7 @@ Welcome to the Budget Tracker and Shopping List Android App! This app allows you
 - [Coroutines](https://kotlinlang.org/docs/coroutines) - [Documentation](https://developer.android.com/kotlin/coroutines)
 - [Jsoup](https://jsoup.org/) - [Documentation](https://jsoup.org/cookbook/)
 - [DataStore](https://developer.android.com/topic/libraries/architecture/datastore) - [Documentation](https://developer.android.com/jetpack/androidx/releases/datastore)
+- [Firebase](https://firebase.google.com/) - [Documentation](https://firebase.google.com/docs)
 - [MVVM Architecture](https://developer.android.com/jetpack/guide#recommended-app-arch) - [Documentation](https://developer.android.com/jetpack/guide)
 - and more :)
 
